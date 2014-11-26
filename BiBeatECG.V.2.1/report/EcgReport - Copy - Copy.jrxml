@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EcgReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="21"/>
+	<subDataset name="ecg">
+		<queryString language="xPath">
+			<![CDATA[/start/leadstart/lead]]>
+		</queryString>
+		<field name="x" class="java.lang.Integer">
+			<fieldDescription><![CDATA[x]]></fieldDescription>
+		</field>
+		<field name="lead1" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead1]]></fieldDescription>
+		</field>
+		<field name="lead2" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead2]]></fieldDescription>
+		</field>
+		<field name="lead3" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead3]]></fieldDescription>
+		</field>
+		<field name="lead4" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead4]]></fieldDescription>
+		</field>
+		<field name="lead5" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead5]]></fieldDescription>
+		</field>
+		<field name="lead6" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead6]]></fieldDescription>
+		</field>
+		<field name="lead7" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead7]]></fieldDescription>
+		</field>
+		<field name="lead8" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead8]]></fieldDescription>
+		</field>
+		<field name="lead9" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead9]]></fieldDescription>
+		</field>
+		<field name="lead10" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead10]]></fieldDescription>
+		</field>
+		<field name="lead11" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead11]]></fieldDescription>
+		</field>
+		<field name="lead12" class="java.lang.Integer">
+			<fieldDescription><![CDATA[lead12]]></fieldDescription>
+		</field>
+	</subDataset>
+	<queryString language="xPath">
+		<![CDATA[/start/info]]>
+	</queryString>
+	<field name="fname" class="java.lang.String">
+		<fieldDescription><![CDATA[fname]]></fieldDescription>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<fieldDescription><![CDATA[sex]]></fieldDescription>
+	</field>
+	<field name="age" class="java.lang.String">
+		<fieldDescription><![CDATA[age]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="upazila" class="java.lang.String">
+		<fieldDescription><![CDATA[upazila]]></fieldDescription>
+	</field>
+	<field name="horiz" class="java.lang.String">
+		<fieldDescription><![CDATA[horiz]]></fieldDescription>
+	</field>
+	<field name="vert" class="java.lang.String">
+		<fieldDescription><![CDATA[vert]]></fieldDescription>
+	</field>
+	<field name="sec0" class="java.lang.String">
+		<fieldDescription><![CDATA[sec0]]></fieldDescription>
+	</field>
+	<field name="sec1" class="java.lang.String">
+		<fieldDescription><![CDATA[sec1]]></fieldDescription>
+	</field>
+	<field name="sec2" class="java.lang.String">
+		<fieldDescription><![CDATA[sec2]]></fieldDescription>
+	</field>
+	<field name="sec3" class="java.lang.String">
+		<fieldDescription><![CDATA[sec3]]></fieldDescription>
+	</field>
+	<field name="sec4" class="java.lang.String">
+		<fieldDescription><![CDATA[sec4]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="485" y="12" width="56" height="14" forecolor="#FF0000"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[ECG Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="0" width="392" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Old English Text MT" size="18"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{upazila}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="57" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="43" width="541" height="2"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="540" y="2" width="1" height="43"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="194" y="2" width="84" height="16" forecolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Patient Name : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="278" y="2" width="113" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="421" y="3" width="27" height="16" forecolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Sex:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="451" y="3" width="72" height="16"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sex}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="23" width="26" height="16" forecolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Age:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="39" y="23" width="100" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="399" y="23" width="130" height="16" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="2" width="60" height="17"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Patient ID :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="2" width="73" height="16"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="1" width="540" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="667" splitType="Stretch">
+			<staticText>
+				<reportElement x="58" y="95" width="17" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="132" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[II]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="174" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[III]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="216" width="50" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[aVR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="257" width="50" height="22"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[aVL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="302" width="50" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[aVF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="338" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[V1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="403" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[V2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="478" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[V3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="538" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[V4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="578" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[V5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="619" width="32" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[V6]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="110" y="44" width="311" height="607"/>
+				<imageExpression class="java.lang.String"><![CDATA["DotGraph3.jpg"]]></imageExpression>
+			</image>
+			<xyLineChart>
+				<chart isShowLegend="false">
+					<reportElement mode="Transparent" x="69" y="0" width="356" height="667" backcolor="#FFFFFF"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend backgroundColor="#FFFFFF" position="Top"/>
+				</chart>
+				<xyDataset>
+					<dataset>
+						<datasetRun subDataset="ecg">
+							<dataSourceExpression><![CDATA[((net.sf.jasperreports.engine.data.JRXmlDataSource)$P{REPORT_DATA_SOURCE}).dataSource("/start/leadstart/lead")]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead I"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead1}+(510+(6*70))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead II"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead2}+(510+(5*70))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead III"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead3}+(510+(4*70))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead aVR"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead4}+(510+(3*70))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead aVL"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead5}+(510+(2*70))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead aVF"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead6}+(510+(1*70))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead V1"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead7}+(150+(120*3))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead V2"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead8}+(150+(120*2))]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead V3"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead9}+(150+ 120)]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead V4"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead10}+150]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead V5"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead11}+80]]></yValueExpression>
+					</xySeries>
+					<xySeries>
+						<seriesExpression><![CDATA["Lead V6"]]></seriesExpression>
+						<xValueExpression><![CDATA[$F{x}]]></xValueExpression>
+						<yValueExpression><![CDATA[$F{lead12}+10]]></yValueExpression>
+					</xySeries>
+				</xyDataset>
+				<linePlot isShowShapes="false">
+					<plot>
+						<seriesColor seriesOrder="0" color="#000000"/>
+						<seriesColor seriesOrder="1" color="#000000"/>
+						<seriesColor seriesOrder="2" color="#000000"/>
+						<seriesColor seriesOrder="3" color="#000000"/>
+						<seriesColor seriesOrder="4" color="#000000"/>
+						<seriesColor seriesOrder="5" color="#000000"/>
+						<seriesColor seriesOrder="6" color="#000000"/>
+						<seriesColor seriesOrder="7" color="#000000"/>
+						<seriesColor seriesOrder="8" color="#000000"/>
+						<seriesColor seriesOrder="9" color="#000000"/>
+						<seriesColor seriesOrder="10" color="#000000"/>
+						<seriesColor seriesOrder="11" color="#000000"/>
+					</plot>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#FFFFFF" axisLineColor="#FFFFFF">
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#FFFFFF" axisLineColor="#FFFFFF">
+							<labelFont/>
+							<tickLabelFont>
+								<font size="10"/>
+							</tickLabelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</linePlot>
+			</xyLineChart>
+			<frame>
+				<reportElement mode="Opaque" x="107" y="0" width="323" height="43"/>
+				<line>
+					<reportElement x="3" y="39" width="1" height="4"/>
+				</line>
+				<line>
+					<reportElement x="73" y="39" width="1" height="4"/>
+				</line>
+				<line>
+					<reportElement x="144" y="39" width="1" height="4"/>
+				</line>
+				<line>
+					<reportElement x="215" y="39" width="1" height="4"/>
+				</line>
+				<line>
+					<reportElement x="285" y="39" width="1" height="4"/>
+				</line>
+				<textField>
+					<reportElement x="0" y="28" width="13" height="10"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sec0}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="70" y="28" width="15" height="10"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sec1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="281" y="28" width="13" height="10"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sec4}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="140" y="28" width="13" height="10"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sec2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="212" y="28" width="13" height="10"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{sec3}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement x="421" y="43" width="1" height="607" backcolor="#FFFFFF"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="110" y="650" width="311" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="441" y="44" width="71" height="20"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{horiz}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="75" width="71" height="20"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{vert}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="428" y="108" width="124" height="214"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="431" y="115" width="37" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Rate :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="458" y="126" width="85" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="469" y="143" width="75" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="432" y="133" width="37" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Rythm :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="472" y="162" width="73" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="433" y="151" width="40" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[P-Wave:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="485" y="179" width="59" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="432" y="169" width="54" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[PR Interval:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="497" y="198" width="47" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="432" y="187" width="66" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[QRS Complex :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="459" y="211" width="85" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="432" y="201" width="37" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Axis :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="472" y="225" width="72" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="432" y="215" width="41" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Q-Wave :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="485" y="240" width="58" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="431" y="230" width="55" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[QT Interval:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="485" y="258" width="60" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="433" y="248" width="65" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[ST Segment:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="472" y="276" width="73" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="433" y="266" width="53" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[T- Wave :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="441" y="310" width="104" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="433" y="283" width="80" height="17"/>
+				<textElement>
+					<font size="9" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Other Abnormality:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="428" y="331" width="124" height="147"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="438" y="335" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Comment]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

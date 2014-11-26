@@ -1,0 +1,255 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x77231f70, pid=856, tid=3896
+#
+# JRE version: 6.0_22-b04
+# Java VM: Java HotSpot(TM) Client VM (17.1-b03 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [ntdll.dll+0x51f70]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x04152400):  JavaThread "AWT-EventQueue-0" [_thread_in_native, id=3896, stack(0x04e70000,0x04ec0000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x0569ffff
+
+Registers:
+EAX=0x0569fff8, EBX=0x056a0000, ECX=0x753b85f4, EDX=0x000006f8
+ESP=0x04ebf360, EBP=0x04ebf370, ESI=0x04f40000, EDI=0x00000000
+EIP=0x77231f70, EFLAGS=0x00010246
+
+Top of Stack: (sp=0x04ebf360)
+0x04ebf360:   056a0000 04152400 00000000 00000000
+0x04ebf370:   04ebf384 75bbf1ac 04f40000 00000000
+0x04ebf380:   056a0000 04ebf3d0 724a4c39 04f40000
+0x04ebf390:   00000000 056a0000 e0806267 04152400
+0x04ebf3a0:   056a0000 00000000 75bc121a 00000454
+0x04ebf3b0:   056a0000 00000000 04ebf398 04ebef54
+0x04ebf3c0:   04ebfc2c 724a8ced 9639ddd7 fffffffe
+0x04ebf3d0:   04ebf420 10001383 056a0000 33a26d00 
+
+Instructions: (pc=0x77231f70)
+0x77231f60:   9c 3f 00 00 f6 c3 07 0f 85 0e 93 02 00 8d 43 f8
+0x77231f70:   80 78 07 05 0f 84 ea 92 02 00 f6 40 07 3f 0f 84 
+
+
+Stack: [0x04e70000,0x04ec0000],  sp=0x04ebf360,  free space=13c04ebee7ck
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [ntdll.dll+0x51f70]
+C  [kernel32.dll+0x4f1ac]
+C  [MSVCR80.dll+0x4c39]
+C  [Wrapper.dll+0x1383]
+j  EcgDisplay.leadComboBoxItemStateChanged(Ljava/awt/event/ItemEvent;)V+37
+j  EcgDisplay.access$000(LEcgDisplay;Ljava/awt/event/ItemEvent;)V+2
+j  EcgDisplay$1.itemStateChanged(Ljava/awt/event/ItemEvent;)V+5
+j  javax.swing.JComboBox.fireItemStateChanged(Ljava/awt/event/ItemEvent;)V+35
+j  javax.swing.JComboBox.selectedItemChanged()V+24
+j  javax.swing.JComboBox.contentsChanged(Ljavax/swing/event/ListDataEvent;)V+28
+j  javax.swing.AbstractListModel.fireContentsChanged(Ljava/lang/Object;II)V+65
+j  javax.swing.DefaultComboBoxModel.setSelectedItem(Ljava/lang/Object;)V+38
+j  javax.swing.JComboBox.setSelectedItem(Ljava/lang/Object;)V+103
+j  javax.swing.JComboBox.setSelectedIndex(I)V+76
+j  javax.swing.plaf.basic.BasicComboPopup$Handler.mouseReleased(Ljava/awt/event/MouseEvent;)V+97
+j  java.awt.AWTEventMulticaster.mouseReleased(Ljava/awt/event/MouseEvent;)V+21
+j  java.awt.Component.processMouseEvent(Ljava/awt/event/MouseEvent;)V+64
+j  javax.swing.JComponent.processMouseEvent(Ljava/awt/event/MouseEvent;)V+23
+j  javax.swing.plaf.basic.BasicComboPopup$1.processMouseEvent(Ljava/awt/event/MouseEvent;)V+70
+j  java.awt.Component.processEvent(Ljava/awt/AWTEvent;)V+81
+j  java.awt.Container.processEvent(Ljava/awt/AWTEvent;)V+18
+j  java.awt.Component.dispatchEventImpl(Ljava/awt/AWTEvent;)V+566
+j  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V+42
+j  java.awt.Component.dispatchEvent(Ljava/awt/AWTEvent;)V+2
+j  java.awt.LightweightDispatcher.retargetMouseEvent(Ljava/awt/Component;ILjava/awt/event/MouseEvent;)V+320
+j  java.awt.LightweightDispatcher.processMouseEvent(Ljava/awt/event/MouseEvent;)Z+139
+j  java.awt.LightweightDispatcher.dispatchEvent(Ljava/awt/AWTEvent;)Z+50
+j  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V+12
+j  java.awt.Window.dispatchEventImpl(Ljava/awt/AWTEvent;)V+19
+j  java.awt.Component.dispatchEvent(Ljava/awt/AWTEvent;)V+2
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+46
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+204
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xf3a9c]
+V  [jvm.dll+0x186591]
+V  [jvm.dll+0xf3c67]
+V  [jvm.dll+0xf3cdd]
+V  [jvm.dll+0x11da00]
+V  [jvm.dll+0x1e7004]
+V  [jvm.dll+0x185f3c]
+C  [msvcr71.dll+0x9565]
+C  [kernel32.dll+0x51174]
+C  [ntdll.dll+0x5b3f5]
+C  [ntdll.dll+0x5b3c8]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  MyHID.IntSendOutputReport([B)Z+0
+j  EcgDisplay.leadComboBoxItemStateChanged(Ljava/awt/event/ItemEvent;)V+37
+j  EcgDisplay.access$000(LEcgDisplay;Ljava/awt/event/ItemEvent;)V+2
+j  EcgDisplay$1.itemStateChanged(Ljava/awt/event/ItemEvent;)V+5
+j  javax.swing.JComboBox.fireItemStateChanged(Ljava/awt/event/ItemEvent;)V+35
+j  javax.swing.JComboBox.selectedItemChanged()V+24
+j  javax.swing.JComboBox.contentsChanged(Ljavax/swing/event/ListDataEvent;)V+28
+j  javax.swing.AbstractListModel.fireContentsChanged(Ljava/lang/Object;II)V+65
+j  javax.swing.DefaultComboBoxModel.setSelectedItem(Ljava/lang/Object;)V+38
+j  javax.swing.JComboBox.setSelectedItem(Ljava/lang/Object;)V+103
+j  javax.swing.JComboBox.setSelectedIndex(I)V+76
+j  javax.swing.plaf.basic.BasicComboPopup$Handler.mouseReleased(Ljava/awt/event/MouseEvent;)V+97
+j  java.awt.AWTEventMulticaster.mouseReleased(Ljava/awt/event/MouseEvent;)V+21
+j  java.awt.Component.processMouseEvent(Ljava/awt/event/MouseEvent;)V+64
+j  javax.swing.JComponent.processMouseEvent(Ljava/awt/event/MouseEvent;)V+23
+j  javax.swing.plaf.basic.BasicComboPopup$1.processMouseEvent(Ljava/awt/event/MouseEvent;)V+70
+j  java.awt.Component.processEvent(Ljava/awt/AWTEvent;)V+81
+j  java.awt.Container.processEvent(Ljava/awt/AWTEvent;)V+18
+j  java.awt.Component.dispatchEventImpl(Ljava/awt/AWTEvent;)V+566
+j  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V+42
+j  java.awt.Component.dispatchEvent(Ljava/awt/AWTEvent;)V+2
+j  java.awt.LightweightDispatcher.retargetMouseEvent(Ljava/awt/Component;ILjava/awt/event/MouseEvent;)V+320
+j  java.awt.LightweightDispatcher.processMouseEvent(Ljava/awt/event/MouseEvent;)Z+139
+j  java.awt.LightweightDispatcher.dispatchEvent(Ljava/awt/AWTEvent;)Z+50
+j  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V+12
+j  java.awt.Window.dispatchEventImpl(Ljava/awt/AWTEvent;)V+19
+j  java.awt.Component.dispatchEvent(Ljava/awt/AWTEvent;)V+2
+j  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V+46
+j  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z+204
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x041f6800 JavaThread "TimerQueue" daemon [_thread_blocked, id=3604, stack(0x05500000,0x05550000)]
+  0x041f6400 JavaThread "DestroyJavaVM" [_thread_blocked, id=3092, stack(0x00280000,0x002d0000)]
+  0x041f5c00 JavaThread "Animation Thread" [_thread_in_native, id=820, stack(0x052f0000,0x05340000)]
+  0x0416d000 JavaThread "Animation Thread" [_thread_blocked, id=3580, stack(0x052a0000,0x052f0000)]
+  0x0416c800 JavaThread "Animation Thread" [_thread_in_Java, id=3952, stack(0x05250000,0x052a0000)]
+  0x0416c400 JavaThread "Animation Thread" [_thread_blocked, id=612, stack(0x05200000,0x05250000)]
+  0x041e3c00 JavaThread "Animation Thread" [_thread_blocked, id=3792, stack(0x05140000,0x05190000)]
+  0x041e3400 JavaThread "Animation Thread" [_thread_blocked, id=3404, stack(0x050f0000,0x05140000)]
+  0x041e5800 JavaThread "Animation Thread" [_thread_blocked, id=3588, stack(0x04f50000,0x04fa0000)]
+  0x041e5400 JavaThread "Animation Thread" [_thread_blocked, id=1672, stack(0x04ec0000,0x04f10000)]
+=>0x04152400 JavaThread "AWT-EventQueue-0" [_thread_in_native, id=3896, stack(0x04e70000,0x04ec0000)]
+  0x04155c00 JavaThread "AWT-Windows" daemon [_thread_in_native, id=3808, stack(0x045d0000,0x04620000)]
+  0x04155400 JavaThread "AWT-Shutdown" [_thread_blocked, id=1692, stack(0x04580000,0x045d0000)]
+  0x04154c00 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=4092, stack(0x04380000,0x043d0000)]
+  0x0198cc00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=2520, stack(0x03cc0000,0x03d10000)]
+  0x0197f800 JavaThread "CompilerThread0" daemon [_thread_blocked, id=1000, stack(0x03c70000,0x03cc0000)]
+  0x0197c800 JavaThread "Attach Listener" daemon [_thread_blocked, id=4024, stack(0x03c20000,0x03c70000)]
+  0x01979800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=2604, stack(0x03bd0000,0x03c20000)]
+  0x01939c00 JavaThread "Finalizer" daemon [_thread_blocked, id=1716, stack(0x03b80000,0x03bd0000)]
+  0x01935000 JavaThread "Reference Handler" daemon [_thread_blocked, id=3784, stack(0x03b30000,0x03b80000)]
+
+Other Threads:
+  0x01933c00 VMThread [stack: 0x03ae0000,0x03b30000] [id=3132]
+  0x019a7c00 WatcherThread [stack: 0x03d10000,0x03d60000] [id=1612]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 1851K [0x239d0000, 0x23f20000, 0x28f20000)
+  eden space 4416K,  30% used [0x239d0000, 0x23b23498, 0x23e20000)
+  from space 512K,  96% used [0x23e20000, 0x23e9b9a0, 0x23ea0000)
+  to   space 512K,   0% used [0x23ea0000, 0x23ea0000, 0x23f20000)
+ tenured generation   total 10944K, used 8493K [0x28f20000, 0x299d0000, 0x339d0000)
+   the space 10944K,  77% used [0x28f20000, 0x2976b6b8, 0x2976b800, 0x299d0000)
+ compacting perm gen  total 12288K, used 1053K [0x339d0000, 0x345d0000, 0x379d0000)
+   the space 12288K,   8% used [0x339d0000, 0x33ad7618, 0x33ad7800, 0x345d0000)
+    ro space 10240K,  54% used [0x379d0000, 0x37f4c510, 0x37f4c600, 0x383d0000)
+    rw space 12288K,  55% used [0x383d0000, 0x38a6fb78, 0x38a6fc00, 0x38fd0000)
+
+Dynamic libraries:
+0x00400000 - 0x00424000 	C:\Program Files\Java\jdk1.6.0_22\bin\java.exe
+0x771e0000 - 0x7731c000 	C:\Windows\SYSTEM32\ntdll.dll
+0x75b70000 - 0x75c44000 	C:\Windows\system32\kernel32.dll
+0x753b0000 - 0x753fa000 	C:\Windows\system32\KERNELBASE.dll
+0x76f60000 - 0x77000000 	C:\Windows\system32\ADVAPI32.dll
+0x75990000 - 0x75a3c000 	C:\Windows\system32\msvcrt.dll
+0x76ab0000 - 0x76ac9000 	C:\Windows\SYSTEM32\sechost.dll
+0x76cb0000 - 0x76d51000 	C:\Windows\system32\RPCRT4.dll
+0x7c340000 - 0x7c396000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\msvcr71.dll
+0x6d8a0000 - 0x6db47000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\client\jvm.dll
+0x76ae0000 - 0x76ba9000 	C:\Windows\system32\USER32.dll
+0x77030000 - 0x7707e000 	C:\Windows\system32\GDI32.dll
+0x76900000 - 0x7690a000 	C:\Windows\system32\LPK.dll
+0x75a40000 - 0x75add000 	C:\Windows\system32\USP10.dll
+0x73850000 - 0x73882000 	C:\Windows\system32\WINMM.dll
+0x77330000 - 0x7734f000 	C:\Windows\system32\IMM32.DLL
+0x75700000 - 0x757cc000 	C:\Windows\system32\MSCTF.dll
+0x75260000 - 0x752ab000 	C:\Windows\system32\apphelp.dll
+0x6d850000 - 0x6d85c000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\verify.dll
+0x6d3d0000 - 0x6d3ef000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\java.dll
+0x6d330000 - 0x6d338000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\hpi.dll
+0x76ad0000 - 0x76ad5000 	C:\Windows\system32\PSAPI.DLL
+0x6d890000 - 0x6d89f000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\zip.dll
+0x6d0b0000 - 0x6d1fa000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\awt.dll
+0x723f0000 - 0x72441000 	C:\Windows\system32\WINSPOOL.DRV
+0x77080000 - 0x771dc000 	C:\Windows\system32\ole32.dll
+0x74290000 - 0x7442e000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7600.16385_none_421189da2b7fabfc\COMCTL32.dll
+0x77350000 - 0x773a7000 	C:\Windows\system32\SHLWAPI.dll
+0x737f0000 - 0x73803000 	C:\Windows\system32\DWMAPI.DLL
+0x74100000 - 0x74140000 	C:\Windows\system32\uxtheme.dll
+0x6d2e0000 - 0x6d32f000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\fontmanager.dll
+0x752b0000 - 0x752bc000 	C:\Windows\system32\CRYPTBASE.dll
+0x75ca0000 - 0x768e9000 	C:\Windows\system32\shell32.dll
+0x10000000 - 0x10006000 	C:\Windows\System32\Wrapper.dll
+0x739e0000 - 0x739e9000 	C:\Windows\system32\HID.DLL
+0x76910000 - 0x76aad000 	C:\Windows\system32\SETUPAPI.dll
+0x755e0000 - 0x75607000 	C:\Windows\system32\CFGMGR32.dll
+0x75630000 - 0x756bf000 	C:\Windows\system32\OLEAUT32.dll
+0x75610000 - 0x75622000 	C:\Windows\system32\DEVOBJ.dll
+0x724a0000 - 0x7253b000 	C:\Windows\WinSxS\x86_microsoft.vc80.crt_1fc8b3b9a1e18e3b_8.0.50727.4927_none_d08a205e442db5b5\MSVCR80.dll
+0x6d6b0000 - 0x6d6c3000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\net.dll
+0x756c0000 - 0x756f5000 	C:\Windows\system32\WS2_32.dll
+0x768f0000 - 0x768f6000 	C:\Windows\system32\NSI.dll
+0x74d70000 - 0x74dac000 	C:\Windows\system32\mswsock.dll
+0x74d60000 - 0x74d66000 	C:\Windows\System32\wship6.dll
+0x6d6d0000 - 0x6d6d9000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\nio.dll
+0x75520000 - 0x7554d000 	C:\Windows\system32\WINTRUST.dll
+0x75400000 - 0x7551c000 	C:\Windows\system32\CRYPT32.dll
+0x753a0000 - 0x753ac000 	C:\Windows\system32\MSASN1.dll
+0x6d250000 - 0x6d273000 	C:\Program Files\Java\jdk1.6.0_22\jre\bin\dcpr.dll
+0x04630000 - 0x04637000 	C:\Program Files\Internet Download Manager\idmmkb.dll
+0x75ae0000 - 0x75b63000 	C:\Windows\system32\CLBCatQ.DLL
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 
+java_command: Main_1
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\90\Tools\binn\
+USERNAME=Aumi
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 10, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7600 
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 3074028k(1418176k free), swap 6146292k(4310508k free)
+
+vm_info: Java HotSpot(TM) Client VM (17.1-b03) for windows-x86 JRE (1.6.0_22-b04), built on Sep 15 2010 00:56:36 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Mon Jun 06 16:04:30 2011
+elapsed time: 5 seconds
+
