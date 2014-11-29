@@ -84,7 +84,7 @@ import org.w3c.dom.Document;
  */
 public class EcgDisplay extends javax.swing.JFrame {
 
-    String ip = "http://192.168.0.102/";
+    String ip = "";
     /*
      * Synchronization class synchronizes collecting and receiving data from usb
      */
@@ -318,6 +318,12 @@ public class EcgDisplay extends javax.swing.JFrame {
               InStream = new BufferedReader(new FileReader("./Info/bin.txt")) ;
              loginID = InStream.readLine();
              loginPass = InStream.readLine();
+             clstat.setUserID(loginID);
+             
+             InStream = new BufferedReader(new FileReader("./Info/ip.txt")) ; 
+             ip = InStream.readLine();
+             clstat.setIP(ip);
+             
              
              if(gainF == 1)
              {
@@ -635,7 +641,6 @@ public class EcgDisplay extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -1428,28 +1433,15 @@ public class EcgDisplay extends javax.swing.JFrame {
         jPanel9.setMinimumSize(new java.awt.Dimension(1, 1));
         jPanel9.setPreferredSize(new java.awt.Dimension(1237, 25));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(723, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(104, 104, 104))
+            .addGap(0, 900, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+            .addGap(0, 46, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1983,7 +1975,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             
             if(clstat.isLoggegIn())
             {
-                RecipientID email = new RecipientID(clstat);
+                RemoteUserID email = new RemoteUserID(clstat);
                 email.jLabel2.setText("Enter Sender's gMailID");
 
                 jLabel2.setText("Logged in");
@@ -2041,7 +2033,8 @@ public class EcgDisplay extends javax.swing.JFrame {
                 
             }
   
-        if (myhid.FindTheHID(5824, 1503))
+        //if (myhid.FindTheHID(5824, 1503))
+         if (1==1)
         {
             login.setVisible(true);
            
@@ -2076,7 +2069,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                 
                 if(clstat.isLoggegIn())
                 {
-                    RecipientID email = new RecipientID(clstat);
+                    RemoteUserID email = new RemoteUserID(clstat);
                     //jabb.login();
                     login.setVisible(false);
                     jLabel2.setText("Logged in");
@@ -2920,8 +2913,8 @@ public class EcgDisplay extends javax.swing.JFrame {
 
 
 
-                read.start();
-                write.start();
+               // read.start();
+               // write.start();
                 flag = false;
 
                 clstat.setPatientName(pfNameTextField.getText());//, plNameTextField.getText());
@@ -2929,11 +2922,14 @@ public class EcgDisplay extends javax.swing.JFrame {
 
                 if(maleButton.isSelected())
                     clstat.setSex("Male");
-                else
+                else if (femaleButton.isSelected())
                     clstat.setSex("Female");
 
                 clstat.setUpazila(upazilaLabel.getText());
                 clstat.setPatientId(patientIdTextField.getText());
+                
+                Thread updateInfo = new Thread(new TransmissionEntry(clstat, 2));
+                updateInfo.start();
 
                 //            }
                 //                else
@@ -3026,12 +3022,6 @@ public class EcgDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setFocusableWindowState(true);
     }//GEN-LAST:event_formMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        loginThred = new Thread(new Login(clstat));
-        loginThred.start();
-    }//GEN-LAST:event_jButton1ActionPerformed
 /**/
     
     public void addAtachments(String[] attachments, Multipart multipart)
@@ -3100,7 +3090,6 @@ public class EcgDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel idLabel;
     public javax.swing.JRadioButton iiRadioButton;
     public javax.swing.JRadioButton iiiRadioButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;

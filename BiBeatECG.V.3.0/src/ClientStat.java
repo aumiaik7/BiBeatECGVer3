@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class ClientStat
@@ -31,8 +32,8 @@ public class ClientStat
   private String pId;
   private String scaling = "";
   private String scalingV = "";
-  private String receiverID = "";
-  private String senderID = "";
+  private String remoteUserID = "";
+  private String userID = "";
   private int sendorReceive = 0;
   private int horizontalScalingFlag = 3;
   private boolean dataFlag = true;
@@ -44,8 +45,29 @@ public class ClientStat
   LeadDisplay3 ld3;
   LeadDisplay4 ld4;
   LeadDisplayExtended2 lde2; 
+  private String ip = "";
+  private String transmissionID = "";
   
   private boolean loginstatus = false;
+  
+  public void setTransmissionID(String tid)
+  {
+      this.transmissionID = tid;
+      
+  }
+  public String getTransmissionID()
+  {
+      return this.transmissionID;
+  }
+  
+  public void setIP(String ip)
+  {
+      this.ip = ip;
+  }
+  public String getIP()
+  {
+      return this.ip;
+  }
   
   public void setIsLoggedIn(boolean flag)
   {
@@ -116,24 +138,24 @@ public class ClientStat
     return this.sendorReceive;
   }
   
-  public void setReceiverID(String id)
+  public void setRemoteUserID(String id)
   {
-    this.receiverID = id;
+    this.remoteUserID = id;
   }
   
-  public String getReceiverID()
+  public String getRemoteUserID()
   {
-    return this.receiverID;
+    return this.remoteUserID;
   }
   
-  public void setSenderID(String id)
+  public void setUserID(String id)
   {
-    this.senderID = id;
+    this.userID = id;
   }
   
-  public String getSenderID()
+  public String getUserID()
   {
-    return this.senderID;
+    return this.userID;
   }
   
   public void setEcgDisplay(EcgDisplay ed)

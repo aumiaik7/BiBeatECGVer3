@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author Aumi
  */
-public class RecipientID extends javax.swing.JFrame {
+public class RemoteUserID extends javax.swing.JFrame {
 
     /** Creates new form RecipientEmail */
     ClientStat clstat;
@@ -34,7 +34,9 @@ public class RecipientID extends javax.swing.JFrame {
     DefaultListModel model;
     FileWriter outputStream; 
     BufferedReader InStream; 
-    public RecipientID(ClientStat cs) {
+    
+    Thread creatEntry;
+    public RemoteUserID(ClientStat cs) {
         this.setLocationRelativeTo(null);
         initComponents();
         clstat = cs;
@@ -50,9 +52,9 @@ public class RecipientID extends javax.swing.JFrame {
            jComboBox1.addItem(element);
         }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(RecipientID.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoteUserID.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(RecipientID.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoteUserID.class.getName()).log(Level.SEVERE, null, ex);
         }
       
         //jComboBox1 = new JComboBox((ComboBoxModel) model);
@@ -68,7 +70,6 @@ public class RecipientID extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -76,8 +77,6 @@ public class RecipientID extends javax.swing.JFrame {
 
         setTitle("Email ID");
         setAlwaysOnTop(true);
-
-        jLabel1.setText("@gmail.com");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText(" ");
@@ -95,22 +94,21 @@ public class RecipientID extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 113, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jComboBox1, 0, 118, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jComboBox1, 0, 181, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,11 +116,9 @@ public class RecipientID extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addComponent(jButton1)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -136,17 +132,23 @@ public class RecipientID extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(jComboBox1.getSelectedIndex()>0)
         {
+             clstat.setRemoteUserID(jComboBox1.getSelectedItem().toString());
             if(clstat.getSendOrReceive() == 1)
             {
                 
-                clstat.setSenderID(jComboBox1.getSelectedItem().toString());
+               
             }
             //clstat.setSenderGmailID(jTextField1.getText()+ "@gmail.com");
             else if (clstat.getSendOrReceive() == 2)
             {
-                
-                clstat.setReceiverID(jComboBox1.getSelectedItem().toString());
+                creatEntry = new Thread(new TransmissionEntry(clstat,1));
+                creatEntry.start();
+               
             }
+             //   clstat.setgmailID(jTextField1.getText()+ "@gmail.com");
+            //jTextField1.setText("");)
+               
+            
              //   clstat.setgmailID(jTextField1.getText()+ "@gmail.com");
             //jTextField1.setText("");
             this.dispose();
@@ -173,7 +175,6 @@ public class RecipientID extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
