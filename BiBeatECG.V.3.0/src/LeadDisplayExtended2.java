@@ -222,7 +222,7 @@ public class LeadDisplayExtended2 extends PApplet{
                         sendData += del3Y[i] + "\n";
                     }
 
-                    jabb.sendMessage(sendData, clstat.getgmailID());
+                    //jabb.sendMessage(sendData, clstat.getgmailID());
 
 
                   }

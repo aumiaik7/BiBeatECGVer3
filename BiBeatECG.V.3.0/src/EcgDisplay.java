@@ -20,6 +20,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.*;
 import java.util.HashMap;
@@ -79,7 +84,7 @@ import org.w3c.dom.Document;
  */
 public class EcgDisplay extends javax.swing.JFrame {
 
-    
+    String ip = "http://192.168.0.102/";
     /*
      * Synchronization class synchronizes collecting and receiving data from usb
      */
@@ -271,6 +276,10 @@ public class EcgDisplay extends javax.swing.JFrame {
         m_subject = " ",//Ecg Report of Mr. "+ clstat.getFirstName() + " " + clstat.getLastName()  ,
         m_text = "Enclosed please follow the attached document.";
         
+        Thread loginThred;
+        
+        String loginID = "";
+        String loginPass = "";
 
     public EcgDisplay() throws UnknownHostException {
         
@@ -305,6 +314,10 @@ public class EcgDisplay extends javax.swing.JFrame {
              gainF = Integer.parseInt(InStream.readLine());
              horScallingF = Integer.parseInt(InStream.readLine());
              filterF = Integer.parseInt(InStream.readLine());
+             
+              InStream = new BufferedReader(new FileReader("./Info/bin.txt")) ;
+             loginID = InStream.readLine();
+             loginPass = InStream.readLine();
              
              if(gainF == 1)
              {
@@ -622,6 +635,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -1414,15 +1428,28 @@ public class EcgDisplay extends javax.swing.JFrame {
         jPanel9.setMinimumSize(new java.awt.Dimension(1, 1));
         jPanel9.setPreferredSize(new java.awt.Dimension(1237, 25));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(723, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(104, 104, 104))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 46, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1838,7 +1865,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             femaleButton.setEnabled(true);
             nextLeadButton.setEnabled(true);
             startStopToggleButton.setEnabled(true);
-            remote.activateStop(true);
+            //remote.activateStop(true);
             
         }
         
@@ -1879,6 +1906,48 @@ public class EcgDisplay extends javax.swing.JFrame {
        
     }//GEN-LAST:event_acquirebuttonMouseClicked
 
+    private void serverLogin() {
+        
+        try {
+                // open a connection to the site
+                                    URL url = new URL(ip+"/ecgserver/auth/ecglogin");
+                                    URLConnection con = url.openConnection();
+                                    // activate the output
+                                    con.setDoOutput(true);
+                                    //con.setRequestProperty("Content-Type", "text/plain");
+                                    PrintStream ps = new PrintStream(con.getOutputStream());
+                                    // send your parameters to your site
+                                    ps.print("username="+loginID);
+                                    ps.print("&password="+loginPass);
+
+                                    // we have to get the input stream in order to actually send the request
+                                    con.getInputStream();
+
+                                    // close the print stream
+                                    ps.close();
+
+                                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                                    String line = null;
+                                    while ((line = in.readLine()) != null) 
+                                    {
+                                        if(line.equals("bay00LAB"))
+                                        {
+                                            clstat.setIsLoggedIn(true);
+                                        }
+                                        System.out.println(line);
+                                    }
+                                    }   
+                            catch (MalformedURLException ex) 
+                            {
+                                    System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+                            } 
+                            catch (IOException ex) 
+                            {
+                             System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+       
+    }
     private void receiveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receiveButtonMouseClicked
      // jLabel1.setText("Logging in Please Wait");
         jLabel2.setText("");
@@ -1895,47 +1964,59 @@ public class EcgDisplay extends javax.swing.JFrame {
              //obj.processLogin();
             
            
-            if(remote.running)
+//            if(remote.running)
+//            {
+//                remote.activateStop(false);
+//                 //System.out.println("Hellooooo");
+//        //
+            //Login to server via PHP
+            
+                //System.out.println("Hellooooo");
+                login.setVisible(true);
+                //jabb.login();
+                serverLogin();
+                 
+                //remote.start();
+                //remote.isRunning();
+                login.setVisible(false);
+                clstat.sendDataFlag(2);
+            
+            if(clstat.isLoggegIn())
             {
-                remote.activateStop(false);
-                 //System.out.println("Hellooooo");
+                RecipientID email = new RecipientID(clstat);
+                email.jLabel2.setText("Enter Sender's gMailID");
+
+                jLabel2.setText("Logged in");
+                jLabel2.setForeground(Color.blue);
+
+                clstat.setSendOrReceive(1);
+                patientIdTextField.setText("");
+
+                email.setVisible(true);
+
+
+                pfNameTextField.setEditable(false);
+                ageTextField.setEditable(false);
+                leadComboBox.setEnabled(false);
+                maleButton.setEnabled(false);
+                femaleButton.setEnabled(false);
+                nextLeadButton.setEnabled(false);
+                startStopToggleButton.setEnabled(false);
             }
             else
             {
-                //System.out.println("Hellooooo");
-                login.setVisible(true);
-                jabb.login();
-                
-                remote.start();
-                remote.isRunning();
-                login.setVisible(false);
-                clstat.sendDataFlag(2);
+                JOptionPane.showMessageDialog(null, "Log in Failed");
             }
-            RecipientEmail email = new RecipientEmail(clstat);
-            email.jLabel2.setText("Enter Sender's gMailID");
-            
-            jLabel2.setText("Logged in");
-            jLabel2.setForeground(Color.blue);
-            
             
             
             
 //            new RecipientEmail(clstat).setVisible(true);
             
-            clstat.setSendOrReceive(1);
-            patientIdTextField.setText("");
-            System.out.println("Hello");
-            email.setVisible(true);
+            
         } catch (Exception e) {
             //Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
         }
-        pfNameTextField.setEditable(false);
-        ageTextField.setEditable(false);
-        leadComboBox.setEnabled(false);
-        maleButton.setEnabled(false);
-        femaleButton.setEnabled(false);
-        nextLeadButton.setEnabled(false);
-        startStopToggleButton.setEnabled(false);
+       
         
         //maleButton.setSelected(true);
     }//GEN-LAST:event_receiveButtonMouseClicked
@@ -1980,39 +2061,37 @@ public class EcgDisplay extends javax.swing.JFrame {
             
             
             System.out.println("Device found");
-            try {
+           
                 //new PlayGround().setVisible(true);
                // obj.processLogin();
                 //jabb.login("aumi.aik7@gmail.com", "220522614219");
                 
-                    if(remote.running)
-                    {
-                        remote.activateStop(false);
-                         //System.out.println("Hellooooo");
-                    }
-                    else
-                    {
-                        login.setVisible(true);
-                        jabb.login();
-
-                        remote.start();
-                        remote.isRunning();
-                        login.setVisible(false);
-                    }
-                RecipientEmail email = new RecipientEmail(clstat);
+                login.setVisible(true);
                 //jabb.login();
-                login.setVisible(false);
-                jLabel2.setText("Logged in");
-                jLabel2.setForeground(Color.blue);
-                email.jLabel2.setText("Enter Recipient's gMailID");
-                email.setVisible(true);
-                //new RecipientEmail(clstat).setVisible(true);
-                
-                clstat.setSendOrReceive(2);
+                serverLogin();
+               
                 //remote.start();
-            } catch (Exception e) {
-            //Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                //remote.isRunning();
+                login.setVisible(false);
+                
+                if(clstat.isLoggegIn())
+                {
+                    RecipientID email = new RecipientID(clstat);
+                    //jabb.login();
+                    login.setVisible(false);
+                    jLabel2.setText("Logged in");
+                    jLabel2.setForeground(Color.blue);
+                    email.jLabel2.setText("Enter Recipient's gMailID");
+                    email.setVisible(true);
+                //new RecipientEmail(clstat).setVisible(true);
+                    clstat.setSendOrReceive(2);
+                }
+                else
+                {
+                     JOptionPane.showMessageDialog(null, "Log in Failed");
+                }
+                //remote.start();
+            
         }
         else
         {
@@ -2578,6 +2657,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         ld1=null; ld2=null; ld3=null; ld4=null;lde2=null;
         ecg=null;
         disp = null;
+        loginThred = null;
         
          //email = null;
          //jabb.disconnect();
@@ -2946,6 +3026,12 @@ public class EcgDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setFocusableWindowState(true);
     }//GEN-LAST:event_formMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        loginThred = new Thread(new Login(clstat));
+        loginThred.start();
+    }//GEN-LAST:event_jButton1ActionPerformed
 /**/
     
     public void addAtachments(String[] attachments, Multipart multipart)
@@ -3014,6 +3100,7 @@ public class EcgDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel idLabel;
     public javax.swing.JRadioButton iiRadioButton;
     public javax.swing.JRadioButton iiiRadioButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -3069,6 +3156,8 @@ public class EcgDisplay extends javax.swing.JFrame {
     public javax.swing.JRadioButton v5RadioButton;
     public javax.swing.JRadioButton v6RadioButton;
     // End of variables declaration//GEN-END:variables
+
+    
 
     private class SMTPAuthenticator extends javax.mail.Authenticator
     {

@@ -31,8 +31,8 @@ public class ClientStat
   private String pId;
   private String scaling = "";
   private String scalingV = "";
-  private String gmailID = "";
-  private String senderGmailID = "";
+  private String receiverID = "";
+  private String senderID = "";
   private int sendorReceive = 0;
   private int horizontalScalingFlag = 3;
   private boolean dataFlag = true;
@@ -43,7 +43,18 @@ public class ClientStat
   LeadDisplay2 ld2;
   LeadDisplay3 ld3;
   LeadDisplay4 ld4;
-  LeadDisplayExtended2 lde2;
+  LeadDisplayExtended2 lde2; 
+  
+  private boolean loginstatus = false;
+  
+  public void setIsLoggedIn(boolean flag)
+  {
+      this.loginstatus = flag;
+  }
+  public boolean isLoggegIn()
+  {
+      return this.loginstatus;
+  }
   
   public void setVerticalScaling(String scl)
   {
@@ -105,24 +116,24 @@ public class ClientStat
     return this.sendorReceive;
   }
   
-  public void setgmailID(String id)
+  public void setReceiverID(String id)
   {
-    this.gmailID = id;
+    this.receiverID = id;
   }
   
-  public String getgmailID()
+  public String getReceiverID()
   {
-    return this.gmailID;
+    return this.receiverID;
   }
   
-  public void setSenderGmailID(String id)
+  public void setSenderID(String id)
   {
-    this.senderGmailID = id;
+    this.senderID = id;
   }
   
-  public String getSenderGmailID()
+  public String getSenderID()
   {
-    return this.senderGmailID;
+    return this.senderID;
   }
   
   public void setEcgDisplay(EcgDisplay ed)

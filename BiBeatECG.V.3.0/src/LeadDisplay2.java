@@ -216,7 +216,7 @@ public class LeadDisplay2 extends PApplet{
                       sendData += del3Y[i] + "\n";
                   }
                   
-                  jabb.sendMessage(sendData, clstat.getgmailID());
+                  //jabb.sendMessage(sendData, clstat.getgmailID());
               }
          }
          else if(clstat.getLeadNo().equals("Lead aVL"))
@@ -266,7 +266,7 @@ public class LeadDisplay2 extends PApplet{
                       sendData += del3Y[i] + "\n";
                   }
                   
-                  jabb.sendMessage(sendData, clstat.getgmailID());
+                 // jabb.sendMessage(sendData, clstat.getgmailID());
               }
          }
          else if(clstat.getLeadNo().equals("Lead aVF"))
@@ -314,7 +314,7 @@ public class LeadDisplay2 extends PApplet{
                       sendData += del3Y[i] + "\n";
                   }
                   
-                  jabb.sendMessage(sendData, clstat.getgmailID());
+                  //jabb.sendMessage(sendData, clstat.getgmailID());
               }
          }
 

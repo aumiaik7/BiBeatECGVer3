@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  *
  * @author Aumi
  */
-public class RecipientEmail extends javax.swing.JFrame {
+public class RecipientID extends javax.swing.JFrame {
 
     /** Creates new form RecipientEmail */
     ClientStat clstat;
@@ -34,7 +34,7 @@ public class RecipientEmail extends javax.swing.JFrame {
     DefaultListModel model;
     FileWriter outputStream; 
     BufferedReader InStream; 
-    public RecipientEmail(ClientStat cs) {
+    public RecipientID(ClientStat cs) {
         this.setLocationRelativeTo(null);
         initComponents();
         clstat = cs;
@@ -50,9 +50,9 @@ public class RecipientEmail extends javax.swing.JFrame {
            jComboBox1.addItem(element);
         }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(RecipientEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecipientID.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(RecipientEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecipientID.class.getName()).log(Level.SEVERE, null, ex);
         }
       
         //jComboBox1 = new JComboBox((ComboBoxModel) model);
@@ -139,18 +139,18 @@ public class RecipientEmail extends javax.swing.JFrame {
             if(clstat.getSendOrReceive() == 1)
             {
                 
-                clstat.setSenderGmailID(jComboBox1.getSelectedItem().toString()+ "@gmail.com");
+                clstat.setSenderID(jComboBox1.getSelectedItem().toString());
             }
             //clstat.setSenderGmailID(jTextField1.getText()+ "@gmail.com");
             else if (clstat.getSendOrReceive() == 2)
             {
                 
-                clstat.setgmailID(jComboBox1.getSelectedItem().toString()+ "@gmail.com");
+                clstat.setReceiverID(jComboBox1.getSelectedItem().toString());
             }
              //   clstat.setgmailID(jTextField1.getText()+ "@gmail.com");
             //jTextField1.setText("");
             this.dispose();
-            this.setVisible(false); 
+            //this.setVisible(false); 
         }
         else
         {

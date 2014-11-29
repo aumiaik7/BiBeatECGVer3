@@ -75,9 +75,7 @@ public class ReceiveRemoteData extends Thread{
     public void run()
     {
     
-        PacketFilter filter 
-        = new AndFilter(new PacketTypeFilter(Message.class), 
-                        new FromContainsFilter(clstat.getSenderGmailID()));
+       // PacketFilter filter  = new AndFilter(new PacketTypeFilter(Message.class),new FromContainsFilter(clstat.getSenderGmailID()));
 
         PacketListener myListener = new PacketListener() {
         public void processPacket(Packet packet) {
@@ -294,7 +292,7 @@ public class ReceiveRemoteData extends Thread{
         }
     };
     // Register the listener.
-    while(!stop)
-    jabb.connection.addPacketListener(myListener, filter);
+   // while(!stop)
+    //jabb.connection.addPacketListener(myListener, filter);
     }
 }
