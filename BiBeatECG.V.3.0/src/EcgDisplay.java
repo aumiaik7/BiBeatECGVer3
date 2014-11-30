@@ -2034,7 +2034,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             }
   
         //if (myhid.FindTheHID(5824, 1503))
-         if (1==1)
+         if (myhid.FindTheHID(5824, 1503))
         {
             login.setVisible(true);
            
@@ -2100,7 +2100,8 @@ public class EcgDisplay extends javax.swing.JFrame {
     private void leadComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leadComboBoxActionPerformed
         // TODO add your handling code here:
         
-         this.clstat.setSelectedLead((String)this.leadComboBox.getSelectedItem());
+         this.clstat.setSelectedLead(this.leadComboBox.getSelectedIndex()+"");
+         
     int j = this.leadComboBox.getSelectedIndex();
     short i = 9;
     long current;
@@ -2913,8 +2914,8 @@ public class EcgDisplay extends javax.swing.JFrame {
 
 
 
-               // read.start();
-               // write.start();
+                read.start();
+                write.start();
                 flag = false;
 
                 clstat.setPatientName(pfNameTextField.getText());//, plNameTextField.getText());
@@ -2928,8 +2929,11 @@ public class EcgDisplay extends javax.swing.JFrame {
                 clstat.setUpazila(upazilaLabel.getText());
                 clstat.setPatientId(patientIdTextField.getText());
                 
-                Thread updateInfo = new Thread(new TransmissionEntry(clstat, 2));
-                updateInfo.start();
+                if(clstat.getSendDataFlag() == 3)
+                {
+                    Thread updateInfo = new Thread(new TransmissionEntry(clstat, 2));
+                    updateInfo.start();
+                }
 
                 //            }
                 //                else

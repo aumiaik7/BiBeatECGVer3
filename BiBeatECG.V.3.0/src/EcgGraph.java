@@ -195,28 +195,29 @@ public void setValue(int data)
             //recordBuffer[i] = 0;
             System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + clstat.getLeadNo());
             
-            if(clstat.getLeadNo() == "Lead I" || clstat.getLeadNo() == "Lead II" || clstat.getLeadNo() == "Lead III")
+            if(clstat.getLeadNo().equals("1") || clstat.getLeadNo().equals("2") || clstat.getLeadNo().equals("3"))
             {    try {
                 ld1.setValue(recordBuffer);//ld1.setValue(iirRecordBuffer);
+               
             } catch (XMPPException ex) {
                 Logger.getLogger(EcgGraph.class.getName()).log(Level.SEVERE, null, ex);
             }//ld1.setValue(iirRecordBuffer);
             }
-            else if(clstat.getLeadNo() == "Lead aVR" || clstat.getLeadNo() == "Lead aVL" || clstat.getLeadNo() == "Lead aVF")
+            else if(clstat.getLeadNo().equals("4") || clstat.getLeadNo().equals("5") || clstat.getLeadNo().equals("6"))
             {   try {
                 ld2.setValue(recordBuffer);
             } catch (XMPPException ex) {
                 Logger.getLogger(EcgGraph.class.getName()).log(Level.SEVERE, null, ex);
             }
             }
-            else if(clstat.getLeadNo() == "Lead V1" || clstat.getLeadNo() == "Lead V2" || clstat.getLeadNo() == "Lead V3")
+            else if(clstat.getLeadNo().equals("7") || clstat.getLeadNo().equals("8") || clstat.getLeadNo().equals("9"))
             {    try {
                 ld3.setValue(recordBuffer);
             } catch (XMPPException ex) {
                 Logger.getLogger(EcgGraph.class.getName()).log(Level.SEVERE, null, ex);
             }
             }
-            else if(clstat.getLeadNo() == "Lead V4" || clstat.getLeadNo() == "Lead V5" || clstat.getLeadNo() == "Lead V6")
+            else if(clstat.getLeadNo().equals("10") || clstat.getLeadNo().equals("11") || clstat.getLeadNo().equals("12"))
             {    try {
                 ld4.setValue(recordBuffer);
 
@@ -227,7 +228,7 @@ public void setValue(int data)
                 Logger.getLogger(EcgGraph.class.getName()).log(Level.SEVERE, null, ex);
             }
             }
-            else if(clstat.getLeadNo() == "Extended Lead II")
+            else if(clstat.getLeadNo().equals("13"))
             {
                  try {
                      

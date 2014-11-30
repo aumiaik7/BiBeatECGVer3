@@ -24,6 +24,7 @@ public class TransmissionEntry implements Runnable{
     
     ClientStat clstat;
     String ip = "";
+    String sendData="";
     
     int flag = 0;
     public TransmissionEntry()
@@ -35,9 +36,16 @@ public class TransmissionEntry implements Runnable{
         this.clstat = cs;
         this.flag = flag;
     }
+    public TransmissionEntry(ClientStat cs, int flag, String data)
+    {
+        this.clstat = cs;
+        this.flag = flag;
+        this.sendData = data;
+    }
 
     public void run() {
         
+        //This porion creates new entry
         if(flag == 1)
         {
             String sender,receiver;
@@ -73,7 +81,7 @@ public class TransmissionEntry implements Runnable{
                    
                     while ((line = in.readLine()) != null) 
                     {
-                         System.out.println(line); 
+                          System.out.println(line);
                         if(line.contains("bay00LAB"))
                         {
                              
@@ -94,18 +102,22 @@ public class TransmissionEntry implements Runnable{
                     }   
             catch (MalformedURLException ex) 
             {
-                    System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                //JOptionPane.showMessageDialog(null, "Problem in connection!"); 
+                //System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
 
             } 
             catch (IOException ex) 
             {
-             System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+             //System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                //JOptionPane.showMessageDialog(null, "Problem in connection!"); 
             }
         }
+        
+        //This portion updates patient info in db
         else if(flag == 2)
         {
          
-            String patient_id,patient_name, patient_sex,patient_age, center;
+           
             
             ip = clstat.getIP();
            
@@ -143,7 +155,8 @@ public class TransmissionEntry implements Runnable{
                    
                     while ((line = in.readLine()) != null) 
                     {
-                         System.out.println(line); 
+                       
+                      System.out.println(line);
                         if(line.equals("bay00LAB"))
                         {
                              
@@ -154,18 +167,89 @@ public class TransmissionEntry implements Runnable{
                     }
                     if(!response.equals("bay00LAB"))
                     {
-                        JOptionPane.showMessageDialog(null, "Problem Occured, Try Again");
+                        //JOptionPane.showMessageDialog(null, "Problem Occured, Try Again");
                     }
                     
                     }   
             catch (MalformedURLException ex) 
             {
-                    System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+               // JOptionPane.showMessageDialog(null, "Problem in connection!"); 
+                //System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
 
             } 
             catch (IOException ex) 
             {
-             System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+             //System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+               // JOptionPane.showMessageDialog(null, "Problem in connection!"); 
+            }
+        }
+        
+        //This code block updates realtime ecg data in db
+        else if(flag == 3)
+        {
+         
+           
+            
+            ip = clstat.getIP();
+           
+            
+             try {
+                    // open a connection to the site
+                    URL url = new URL(ip+"ecgserver/ecgcontroller/saveData");
+                    URLConnection con = url.openConnection();
+                    // activate the output
+                    con.setDoOutput(true);
+                    //con.setRequestProperty("Content-Type", "text/plain");
+                    PrintStream ps = new PrintStream(con.getOutputStream());
+                    // send your parameters to your site
+                    ps.print("id="+clstat.getTransmissionID());
+                    ps.print("&data="+sendData);
+                     
+                    
+
+
+
+                    // we have to get the input stream in order to actually send the request
+                    con.getInputStream();
+
+                    // close the print stream
+                    ps.close();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String line = null;
+                    String parts[];
+                    String response="";
+                   
+                    while ((line = in.readLine()) != null) 
+                    {
+                      
+                       System.out.println(line);
+                      //  if(line.equals("bay00LAB"))
+                       // {
+                             
+                             response = line;
+                       // }
+                        
+                            
+
+
+                    }
+                    if(!response.equals("bay00LAB"))
+                    {
+                        JOptionPane.showMessageDialog(null, response);
+                    }
+                    
+                    }   
+            catch (MalformedURLException ex) 
+            {
+                //JOptionPane.showMessageDialog(null, "Problem in connection!"); 
+                //System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+            } 
+            catch (IOException ex) 
+            {
+             //System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+               // JOptionPane.showMessageDialog(null, "Problem in connection!"); 
             }
         }
         

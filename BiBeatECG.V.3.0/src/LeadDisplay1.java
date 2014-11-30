@@ -78,6 +78,7 @@ public class LeadDisplay1 extends PApplet{
       communication usb;
      
       JabberSmackAPI jabb;
+      Thread transEntry;
       
  
      
@@ -170,6 +171,33 @@ public class LeadDisplay1 extends PApplet{
                     del3Y[j] = (int)(val[j])  ;
                
                }
+               
+              if(clstat.getSendDataFlag() == 3)
+              {
+                  sendData = "";
+                  sendData += clstat.getLeadNo() + ";";
+                  sendData += clstat.gethorScalling() + ";";
+                  sendData += clstat.getVerticalScalling()+ ";";
+                  sendData += clstat.getVerticalScallingV()+ ";";  
+                  sendData += clstat.getFilterFlag() + ";";
+                  
+                  
+                  
+                   
+                  
+                    for(int i = 0; i<del3Y.length;i++)
+                  {
+              
+                      sendData += del3Y[i] + " ";
+                  }
+                    
+                    transEntry = new Thread(new TransmissionEntry(clstat,3,sendData));
+                    transEntry.start();
+                  
+                //  jabb.sendMessage(sendData, clstat.getgmailID());
+                
+            
+              }
           
        }
        else if(clstat.getSendDataFlag() == 2)
@@ -186,7 +214,7 @@ public class LeadDisplay1 extends PApplet{
            ecgD.jTabbedPane1.setSelectedIndex(0);
        }
 
-        if(clstat.getLeadNo().equals("Lead I"))
+        if(clstat.getLeadNo().equals("1"))
          {
              
                 flag2 = false;
@@ -202,36 +230,10 @@ public class LeadDisplay1 extends PApplet{
               midpoint = -(25*15);
               clstat.setLead1(del3Y);
           
-              if(clstat.getSendDataFlag() == 3)
-              {
-                  sendData = "";
-                  sendData += clstat.getFirstName() + "\n";
-                  //sendData += clstat.getLastName() + "\n";
-                  sendData += clstat.getSex() + "\n";
-                  sendData += clstat.getAge() + "\n";
-                  sendData += clstat.getLeadNo() + "\n";
-                  sendData += clstat.getFilterFlag() + "\n";
-                  sendData += clstat.getPatientId() + "\n";
-                  sendData += clstat.getUpazila() + "\n";
-                  sendData += clstat.gethorScalling() + "\n";
-                  sendData += clstat.getVerticalScalling()+ "\n";
-                  sendData += clstat.getVerticalScallingV()+ "\n";
-                  
-                   
-                  
-                    for(int i = 0; i<del3Y.length;i++)
-                  {
-              
-                      sendData += del3Y[i] + "\n";
-                  }
-                  
-                //  jabb.sendMessage(sendData, clstat.getgmailID());
-                
-            
-              }
+             
     
          }
-         else if(clstat.getLeadNo().equals("Lead II"))
+         else if(clstat.getLeadNo().equals("2"))
          {
             
             
@@ -246,33 +248,9 @@ public class LeadDisplay1 extends PApplet{
 
              midpoint = -(25*9);
              clstat.setLead2(del3Y);
-             if(clstat.getSendDataFlag() == 3)
-             {
-                 
              
-                  sendData = "";
-                  sendData += clstat.getFirstName() + "\n";
-                  //sendData += clstat.getLastName() + "\n";
-                  sendData += clstat.getSex() + "\n";
-                  sendData += clstat.getAge() + "\n";
-                  sendData += clstat.getLeadNo() + "\n";
-                  sendData += clstat.getFilterFlag() + "\n";
-                  sendData += clstat.getPatientId() + "\n";
-                  sendData += clstat.getUpazila() + "\n";
-                  sendData += clstat.gethorScalling() + "\n";
-                  sendData += clstat.getVerticalScalling()+ "\n";
-                  sendData += clstat.getVerticalScallingV()+ "\n";
-                  
-                    for(int i = 0; i<del3Y.length;i++)
-                  {
-            
-                      sendData += del3Y[i] + "\n";
-                  }
-                  
-                  //jabb.sendMessage(sendData, clstat.getgmailID());
-              }
          }
-         else if(clstat.getLeadNo().equals("Lead III"))
+         else if(clstat.getLeadNo().equals("3"))
          {
             
                 
@@ -287,32 +265,7 @@ public class LeadDisplay1 extends PApplet{
 
              midpoint = -(25*3);
              clstat.setLead3(del3Y);
-             if(clstat.getSendDataFlag() == 3)
-              {
-
-                  
-                  sendData = "";
-                  sendData += clstat.getFirstName() + "\n";
-                  //sendData += clstat.getLastName() + "\n";
-                  sendData += clstat.getSex() + "\n";
-                  sendData += clstat.getAge() + "\n";
-                  sendData += clstat.getLeadNo() + "\n";
-                  sendData += clstat.getFilterFlag() + "\n";
-                  sendData += clstat.getPatientId() + "\n";
-                  sendData += clstat.getUpazila() + "\n";
-                  sendData += clstat.gethorScalling() + "\n";
-                  sendData += clstat.getVerticalScalling()+ "\n";
-                  sendData += clstat.getVerticalScallingV()+ "\n";
-                  
-                 
-                    for(int i = 0; i<del3Y.length;i++)
-                  {
             
-                      sendData += del3Y[i] + "\n";
-                  }
-                  
-                 // jabb.sendMessage(sendData, clstat.getgmailID());
-              }
          }
 
 
