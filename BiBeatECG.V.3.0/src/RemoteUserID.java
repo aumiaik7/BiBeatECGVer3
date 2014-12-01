@@ -34,12 +34,14 @@ public class RemoteUserID extends javax.swing.JFrame {
     DefaultListModel model;
     FileWriter outputStream; 
     BufferedReader InStream; 
+    EcgDisplay display;
     
     Thread creatEntry;
-    public RemoteUserID(ClientStat cs) {
+    public RemoteUserID(ClientStat cs,EcgDisplay display) {
         this.setLocationRelativeTo(null);
         initComponents();
         clstat = cs;
+        this.display = display;
         
          model = new DefaultListModel();
 
@@ -135,7 +137,8 @@ public class RemoteUserID extends javax.swing.JFrame {
              clstat.setRemoteUserID(jComboBox1.getSelectedItem().toString());
             if(clstat.getSendOrReceive() == 1)
             {
-                
+                creatEntry = new Thread(new RemoteData(clstat,display));
+                creatEntry.start();
                
             }
             //clstat.setSenderGmailID(jTextField1.getText()+ "@gmail.com");

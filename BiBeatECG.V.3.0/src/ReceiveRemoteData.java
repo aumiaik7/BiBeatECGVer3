@@ -92,7 +92,7 @@ public class ReceiveRemoteData extends Thread{
                          
                          reader = new BufferedReader(new FileReader(file));
                          
-                         fname = reader.readLine();
+                          fname = reader.readLine();
                           //lname = reader.readLine();
                           sex = reader.readLine();
                           age = reader.readLine();

@@ -81,7 +81,7 @@ public class TransmissionEntry implements Runnable{
                    
                     while ((line = in.readLine()) != null) 
                     {
-                          System.out.println(line);
+                          //System.out.println(line);
                         if(line.contains("bay00LAB"))
                         {
                              
@@ -137,6 +137,7 @@ public class TransmissionEntry implements Runnable{
                     ps.print("&patient_sex="+ clstat.getSex());
                     ps.print("&patient_age="+clstat.getAge());
                     ps.print("&center="+clstat.getUpazila());
+                    ps.print("&check=bmptw012010");
                     
                     
 
@@ -204,6 +205,7 @@ public class TransmissionEntry implements Runnable{
                     // send your parameters to your site
                     ps.print("id="+clstat.getTransmissionID());
                     ps.print("&data="+sendData);
+                    ps.print("&check=bmptw012010");
                      
                     
 
@@ -236,7 +238,7 @@ public class TransmissionEntry implements Runnable{
                     }
                     if(!response.equals("bay00LAB"))
                     {
-                        JOptionPane.showMessageDialog(null, response);
+                        //JOptionPane.showMessageDialog(null, response);
                     }
                     
                     }   

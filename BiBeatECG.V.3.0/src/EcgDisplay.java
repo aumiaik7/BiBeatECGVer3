@@ -276,7 +276,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         m_subject = " ",//Ecg Report of Mr. "+ clstat.getFirstName() + " " + clstat.getLastName()  ,
         m_text = "Enclosed please follow the attached document.";
         
-        Thread loginThred;
+        
         
         String loginID = "";
         String loginPass = "";
@@ -1975,7 +1975,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             
             if(clstat.isLoggegIn())
             {
-                RemoteUserID email = new RemoteUserID(clstat);
+                RemoteUserID email = new RemoteUserID(clstat,this);
                 email.jLabel2.setText("Enter Sender's gMailID");
 
                 jLabel2.setText("Logged in");
@@ -2069,7 +2069,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                 
                 if(clstat.isLoggegIn())
                 {
-                    RemoteUserID email = new RemoteUserID(clstat);
+                    RemoteUserID email = new RemoteUserID(clstat,this);
                     //jabb.login();
                     login.setVisible(false);
                     jLabel2.setText("Logged in");
@@ -2651,7 +2651,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         ld1=null; ld2=null; ld3=null; ld4=null;lde2=null;
         ecg=null;
         disp = null;
-        loginThred = null;
+        
         
          //email = null;
          //jabb.disconnect();
