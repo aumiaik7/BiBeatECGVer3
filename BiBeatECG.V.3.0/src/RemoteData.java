@@ -48,7 +48,7 @@ public class RemoteData implements Runnable{
         {
             String sender,receiver;
             ip = clstat.getIP();
-            receiver = "ecg.user22";//clstat.getUserID();
+            receiver = clstat.getUserID();
             sender = clstat.getRemoteUserID();
             
 
@@ -284,6 +284,7 @@ public class RemoteData implements Runnable{
                            else if(lead.equals("13"))
                           {
                               display.eiiRadioButton.setSelected(true);
+                              display.gainLabel.setText(verticalScalling);
                           }
                           
                           
