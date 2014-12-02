@@ -86,12 +86,13 @@ public class RemoteData implements Runnable{
                              
                              response = line;
                         }
+                         
 
 
                     }
                     if(!response.contains("bay00LAB"))
                     {
-                        JOptionPane.showMessageDialog(null, "Problem Occured, Try Again");
+                        //JOptionPane.showMessageDialog(null, "Problem Occured, Try Again");
                     }
                     else
                     {
@@ -203,182 +204,193 @@ public class RemoteData implements Runnable{
                           String lead = "",gain = "", filt= "",horizontalScalling = "",verticalScalling = "",verticalScallingV = "";
                           int horizontalFlag;
                           String parts[]  = data.split(";");
-                          lead = parts[0];
-                         
-                          horizontalFlag = Integer.parseInt(parts[1]);
-                          verticalScalling = parts[2];
-                          verticalScallingV = parts[3];
-                          filt = parts[4];
-                          //display.pfNameTextField.setText(fname);
-                          
-                          //display.plNameTextField.setText(lname);
-//                          clstat.setPatientName(fname, lname);
-                          /*
-                          */
-                                  
-                          clstat.setSelectedLead(lead);
-                          
-                          
-                          
-                          if(lead.equals("1"))
-                          {
-                              display.iRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          else if(lead.equals("2"))
-                          {
-                              display.iiRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          else if(lead.equals("3"))
-                          {
-                              display.iiiRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          else if(lead.equals("4"))
-                          {
-                              display.avrRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          else if(lead.equals("5"))
-                          {
-                              display.avlRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          else if(lead.equals("6"))
-                          {
-                              display.avfRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          else if(lead.equals("7"))
-                          {
-                              display.v1RadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScallingV);
-                          }
-                          else if(lead.equals("8"))
-                          {
-                              display.v2RadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScallingV);
-                          }
-                          else if(lead.equals("9"))
-                          {
-                              display.v3RadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScallingV);
-                          }
-                          else if(lead.equals("10"))
-                          {
-                              display.v4RadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScallingV);
-                          }
-                          else if(lead.equals("11"))
-                          {
-                              display.v5RadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScallingV);
-                          }
-                          else if(lead.equals("12"))
-                          {
-                              display.v6RadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScallingV);
-                          }
-                          
-                           else if(lead.equals("13"))
-                          {
-                              display.eiiRadioButton.setSelected(true);
-                              display.gainLabel.setText(verticalScalling);
-                          }
-                          
-                          
-                         
-                          clstat.setVerticalScaling(verticalScalling);
-                          clstat.setVerticalScalingV(verticalScallingV);
-                          
-                             
-                        
-                           
-                          
-                          if(filt.equals("false"))
-                          {
-                              display.filterStatusLabel.setText("OFF");
+                          System.out.println("Length "+ parts.length);
+                          if(parts.length > 1 )
+                          {    
+                                lead = parts[0];
+
+                                horizontalFlag = Integer.parseInt(parts[1]);
+                                verticalScalling = parts[2];
+                                verticalScallingV = parts[3];
+                                filt = parts[4];
+                               
+                                
+                                display.capturingLabel.setText("Sender Measuring "+parts[6]);
+                                                               //display.pfNameTextField.setText(fname);
+
+                                //display.plNameTextField.setText(lname);
+      //                          clstat.setPatientName(fname, lname);
+                                /*
+                                */
+
+                                clstat.setSelectedLead(lead);
+
+
+
+                                if(lead.equals("1"))
+                                {
+                                    display.iRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+                                else if(lead.equals("2"))
+                                {
+                                    display.iiRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+                                else if(lead.equals("3"))
+                                {
+                                    display.iiiRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+                                else if(lead.equals("4"))
+                                {
+                                    display.avrRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+                                else if(lead.equals("5"))
+                                {
+                                    display.avlRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+                                else if(lead.equals("6"))
+                                {
+                                    display.avfRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+                                else if(lead.equals("7"))
+                                {
+                                    display.v1RadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScallingV);
+                                }
+                                else if(lead.equals("8"))
+                                {
+                                    display.v2RadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScallingV);
+                                }
+                                else if(lead.equals("9"))
+                                {
+                                    display.v3RadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScallingV);
+                                }
+                                else if(lead.equals("10"))
+                                {
+                                    display.v4RadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScallingV);
+                                }
+                                else if(lead.equals("11"))
+                                {
+                                    display.v5RadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScallingV);
+                                }
+                                else if(lead.equals("12"))
+                                {
+                                    display.v6RadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScallingV);
+                                }
+
+                                 else if(lead.equals("13"))
+                                {
+                                    display.eiiRadioButton.setSelected(true);
+                                    display.gainLabel.setText(verticalScalling);
+                                }
+
+
+
+                                clstat.setVerticalScaling(verticalScalling);
+                                clstat.setVerticalScalingV(verticalScallingV);
+
+
+
+
+
+                                if(filt.equals("false"))
+                                {
+                                    display.filterStatusLabel.setText("OFF");
+                                }
+                                else
+                                    display.filterStatusLabel.setText("ON");
+
+
+
+
+                                if(horizontalFlag==1)
+                                {
+                                    clstat.sethorScalling(1);
+                                    display.mmPerSecLabel.setText("15 mm/sec");
+                                }
+                                else if((horizontalFlag==2))
+                                {
+                                    clstat.sethorScalling(2);
+                                    display.mmPerSecLabel.setText("20 mm/sec");
+                                }if(horizontalFlag==3)
+                                {
+                                    clstat.sethorScalling(3);
+                                    display.mmPerSecLabel.setText("25 mm/sec");
+                                }
+                                else
+                                {
+                                     clstat.sethorScalling(4);
+                                    display.mmPerSecLabel.setText("50 mm/sec");
+                                }
+
+
+                                String text = "";
+                                int [] buffer = new int[512];
+
+                                String partsData[] = parts[5].split(" ");
+                                for(int i=0; i<partsData.length; i++)
+                                {
+                                    buffer[i] = Integer.parseInt(partsData[i].trim());
+                                    //System.out.println(""+buffer[i]);
+                                    //i++;
+                                }
+
+                                if(clstat.getLeadNo().equals("1") || clstat.getLeadNo().equals("2") || clstat.getLeadNo().equals("3"))
+                                {
+                                  try {
+                                      //JOptionPane.showMessageDialog(null, clstat.getLeadNo()+ "Send Flag = " + clstat.getSendDataFlag() );
+                                      //ld1.setValue(buffer);
+                                      //JOptionPane.showMessageDialog(null, "Lovelu");
+                                      clstat.getDisplay1Object().setValue(buffer);
+                                      //clstat.getDisplay1Object().setValue(buffer);
+                                  } catch (XMPPException ex) {
+                                        Logger.getLogger(RemoteData.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                                else if(clstat.getLeadNo().equals("4") || clstat.getLeadNo().equals("5") || clstat.getLeadNo().equals("6"))
+                                   try {
+                                  clstat.getDisplay2Object().setValue(buffer);// ld2.setValue(buffer);
+                              } catch (XMPPException ex) {
+                                  Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
+                              }// ld2.setValue(buffer);
+                                else if(clstat.getLeadNo().equals("7") || clstat.getLeadNo().equals("8") || clstat.getLeadNo().equals("9"))
+                                    try {
+                                  clstat.getDisplay3Object().setValue(buffer);//ld3.setValue(buffer);
+                              } catch (XMPPException ex) {
+                                  Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
+                              }//ld3.setValue(buffer);
+                                else if(clstat.getLeadNo().equals("10") || clstat.getLeadNo().equals("11") || clstat.getLeadNo().equals("12"))
+                                    try {
+                                  clstat.getDisplay4Object().setValue(buffer);//ld4.setValue(buffer);
+
+                            //...
+                              } catch (XMPPException ex) {
+                                  Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
+                              }//ld4.setValue(buffer);
+
+                               else if(clstat.getLeadNo().equals("13"))
+                                    try {
+                                  clstat.getDisplaye2Object().setValue(buffer);//ld4.setValue(buffer);
+
+                            //...
+                              } catch (XMPPException ex) {
+                                  Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
+                              }//ld4.setValue(buffe
                           }
                           else
-                              display.filterStatusLabel.setText("ON");
-                         
-                          
-                         
-                          
-                          if(horizontalFlag==1)
                           {
-                              clstat.sethorScalling(1);
-                              display.mmPerSecLabel.setText("15 mm/sec");
+                                display.capturingLabel.setText("Sender Measuring "+data);
                           }
-                          else if((horizontalFlag==2))
-                          {
-                              clstat.sethorScalling(2);
-                              display.mmPerSecLabel.setText("20 mm/sec");
-                          }if(horizontalFlag==3)
-                          {
-                              clstat.sethorScalling(3);
-                              display.mmPerSecLabel.setText("25 mm/sec");
-                          }
-                          else
-                          {
-                               clstat.sethorScalling(4);
-                              display.mmPerSecLabel.setText("50 mm/sec");
-                          }
-                          
-                          
-                          String text = "";
-                          int [] buffer = new int[512];
-                          
-                          String partsData[] = parts[5].split(" ");
-                          for(int i=0; i<partsData.length; i++)
-                          {
-                              buffer[i] = Integer.parseInt(partsData[i].trim());
-                              //System.out.println(""+buffer[i]);
-                              //i++;
-                          }
-                          
-                          if(clstat.getLeadNo().equals("1") || clstat.getLeadNo().equals("2") || clstat.getLeadNo().equals("3"))
-                          {
-                            try {
-                                //JOptionPane.showMessageDialog(null, clstat.getLeadNo()+ "Send Flag = " + clstat.getSendDataFlag() );
-                                //ld1.setValue(buffer);
-                                //JOptionPane.showMessageDialog(null, "Lovelu");
-                                clstat.getDisplay1Object().setValue(buffer);
-                                //clstat.getDisplay1Object().setValue(buffer);
-                            } catch (XMPPException ex) {
-                                  Logger.getLogger(RemoteData.class.getName()).log(Level.SEVERE, null, ex);
-                              }
-                          }
-                          else if(clstat.getLeadNo().equals("4") || clstat.getLeadNo().equals("5") || clstat.getLeadNo().equals("6"))
-                             try {
-                            clstat.getDisplay2Object().setValue(buffer);// ld2.setValue(buffer);
-                        } catch (XMPPException ex) {
-                            Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
-                        }// ld2.setValue(buffer);
-                          else if(clstat.getLeadNo().equals("7") || clstat.getLeadNo().equals("8") || clstat.getLeadNo().equals("9"))
-                              try {
-                            clstat.getDisplay3Object().setValue(buffer);//ld3.setValue(buffer);
-                        } catch (XMPPException ex) {
-                            Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
-                        }//ld3.setValue(buffer);
-                          else if(clstat.getLeadNo().equals("10") || clstat.getLeadNo().equals("11") || clstat.getLeadNo().equals("12"))
-                              try {
-                            clstat.getDisplay4Object().setValue(buffer);//ld4.setValue(buffer);
-                        
-                      //...
-                        } catch (XMPPException ex) {
-                            Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
-                        }//ld4.setValue(buffer);
-                          
-                         else if(clstat.getLeadNo().equals("13"))
-                              try {
-                            clstat.getDisplaye2Object().setValue(buffer);//ld4.setValue(buffer);
-                        
-                      //...
-                        } catch (XMPPException ex) {
-                            Logger.getLogger(ReceiveRemoteData.class.getName()).log(Level.SEVERE, null, ex);
-                        }//ld4.setValue(buffe
     }
 
     private void infoCheck() {
@@ -430,7 +442,7 @@ public class RemoteData implements Runnable{
                     {
                         parts  = response.split("bay00LAB");
                         infoCheck = true;
-                        parts_info = parts[1].split(" ");
+                        parts_info = parts[1].split(";");
                         clstat.setPatientId(parts_info[0]);
                         display.patientIdTextField.setText(parts_info[0]);
                         

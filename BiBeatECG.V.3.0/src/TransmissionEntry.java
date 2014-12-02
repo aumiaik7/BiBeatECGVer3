@@ -81,7 +81,7 @@ public class TransmissionEntry implements Runnable{
                    
                     while ((line = in.readLine()) != null) 
                     {
-                          //System.out.println(line);
+                          System.out.println(line);
                         if(line.contains("bay00LAB"))
                         {
                              
@@ -255,6 +255,75 @@ public class TransmissionEntry implements Runnable{
             }
         }
         
+        
+        else if(flag == 4)
+        {
+         
+           
+            
+            ip = clstat.getIP();
+           
+            
+             try {
+                    // open a connection to the site
+                    URL url = new URL(ip+"ecgserver/ecgcontroller/setCurrentLead");
+                    URLConnection con = url.openConnection();
+                    // activate the output
+                    con.setDoOutput(true);
+                    //con.setRequestProperty("Content-Type", "text/plain");
+                    PrintStream ps = new PrintStream(con.getOutputStream());
+                    // send your parameters to your site
+                    ps.print("id="+clstat.getTransmissionID());
+                    ps.print("&lead="+sendData);
+                    ps.print("&check=bmptw012010");
+                     
+                    
+
+
+
+                    // we have to get the input stream in order to actually send the request
+                    con.getInputStream();
+
+                    // close the print stream
+                    ps.close();
+
+                    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String line = null;
+                    String parts[];
+                    String response="";
+                   
+                    while ((line = in.readLine()) != null) 
+                    {
+                      
+                       System.out.println(line);
+                      //  if(line.equals("bay00LAB"))
+                       // {
+                             
+                             response = line;
+                       // }
+                        
+                            
+
+
+                    }
+                    if(!response.equals("bay00LAB"))
+                    {
+                        //JOptionPane.showMessageDialog(null, response);
+                    }
+                    
+                    }   
+            catch (MalformedURLException ex) 
+            {
+                //JOptionPane.showMessageDialog(null, "Problem in connection!"); 
+                //System.out.println(ex);        //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+            } 
+            catch (IOException ex) 
+            {
+             //System.out.println(ex);                //Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+               // JOptionPane.showMessageDialog(null, "Problem in connection!"); 
+            }
+        }
     }
     
 }

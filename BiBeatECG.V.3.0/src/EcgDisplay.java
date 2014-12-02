@@ -280,7 +280,12 @@ public class EcgDisplay extends javax.swing.JFrame {
         
         String loginID = "";
         String loginPass = "";
+        Thread transEntry;
 
+         Toolkit tk ;
+        Rectangle winSize ;
+
+        int taskBarHeight ;
     public EcgDisplay() throws UnknownHostException {
         
         ImageIcon img = new ImageIcon("./Info/ecg-icon.png");
@@ -424,10 +429,10 @@ public class EcgDisplay extends javax.swing.JFrame {
         clstat.setUpazila(upazilaLabel.getText());
         clstat.setPatientId(patientIdTextField.getText());
         
-        Toolkit tk = Toolkit.getDefaultToolkit();
-        Rectangle winSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+        tk = Toolkit.getDefaultToolkit();
+        winSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 
-        int taskBarHeight = (int) tk.getScreenSize().getHeight() - winSize.height;
+        taskBarHeight = (int) tk.getScreenSize().getHeight() - winSize.height;
         setSize((int)tk.getScreenSize().getWidth(), (int) tk.getScreenSize().getHeight()-taskBarHeight);
         
         int screenWidth = (int)tk.getScreenSize().getWidth();
@@ -637,6 +642,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         reportButton = new javax.swing.JButton();
         upazilaLabel = new javax.swing.JLabel();
         eiiRadioButton = new javax.swing.JRadioButton();
+        capturingLabel = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -681,6 +687,11 @@ public class EcgDisplay extends javax.swing.JFrame {
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
+            }
+        });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
             }
         });
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -1244,7 +1255,7 @@ public class EcgDisplay extends javax.swing.JFrame {
 
         upazilaLabel.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         upazilaLabel.setForeground(new java.awt.Color(0, 51, 255));
-        upazilaLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        upazilaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         eiiRadioButton.setBackground(new java.awt.Color(221, 239, 221));
         buttonGroup6.add(eiiRadioButton);
@@ -1257,6 +1268,9 @@ public class EcgDisplay extends javax.swing.JFrame {
                 eiiRadioButtonMouseClicked(evt);
             }
         });
+
+        capturingLabel.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        capturingLabel.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1306,11 +1320,14 @@ public class EcgDisplay extends javax.swing.JFrame {
                         .addComponent(filterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(filterStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(realtimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(realtimePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1321,26 +1338,27 @@ public class EcgDisplay extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(upazilaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(capturingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(upazilaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(upazilaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(upazilaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mmPerSecLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(gainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(filterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(filterStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(filterStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(capturingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(realtimePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1426,7 +1444,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 45, Short.MAX_VALUE)
+            .addGap(0, 46, Short.MAX_VALUE)
         );
 
         jPanel9.setBackground(new java.awt.Color(221, 239, 221));
@@ -1441,7 +1459,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 46, Short.MAX_VALUE)
+            .addGap(0, 47, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1466,11 +1484,11 @@ public class EcgDisplay extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)))
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)))
                 .addGap(0, 0, 0))
         );
 
@@ -1848,6 +1866,7 @@ public class EcgDisplay extends javax.swing.JFrame {
     private void acquirebuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acquirebuttonMouseClicked
         // TODO add your handling code here:
         jLabel2.setText("");
+        capturingLabel.setText("");
         if(clstat.getSendDataFlag() == 2)
         {
              pfNameTextField.setEditable(true);
@@ -1857,6 +1876,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             femaleButton.setEnabled(true);
             nextLeadButton.setEnabled(true);
             startStopToggleButton.setEnabled(true);
+            
             //remote.activateStop(true);
             
         }
@@ -2114,8 +2134,14 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.usb.SetFeatureReport(this.selectLead, i);
       this.iRadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
+      
+      
+          
       
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScalling())) || (("10 mm/mV".equals(this.clstat.getVerticalScalling())) && ("5 mm/mV".equals(this.gainLabel.getText())))) {
@@ -2127,8 +2153,18 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead I")); 
+          transEntry.start();
+          
+      }
+     
       
 
 
@@ -2139,8 +2175,11 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.usb.SetFeatureReport(this.selectLead, i);
       this.eiiRadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScalling())) || (("10 mm/mV".equals(this.clstat.getVerticalScalling())) && ("5 mm/mV".equals(this.gainLabel.getText())))) {
         tenmmButtonMenuItem3ActionPerformed(evt);
@@ -2151,19 +2190,33 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+    if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
       
+    if(clstat.getSendDataFlag() == 3)
+    {
+        transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead II")); 
+        transEntry.start();
 
+    }
+    
       break;
+        
+        
     case 3: 
       this.selectLead[1] = 3;
       this.jTabbedPane1.setSelectedIndex(0);
       this.usb.SetFeatureReport(this.selectLead, i);
       this.iiiRadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScalling())) || (("10 mm/mV".equals(this.clstat.getVerticalScalling())) && ("5 mm/mV".equals(this.gainLabel.getText())))) {
         tenmmButtonMenuItem3ActionPerformed(evt);
@@ -2174,10 +2227,22 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+     if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+     
+     if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead III")); 
+          transEntry.start();
+          
+      }
       
       break;
+        
+        
     case 4: 
       this.selectLead[1] = 4;
       this.jTabbedPane1.setSelectedIndex(1);
@@ -2185,8 +2250,11 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.avrRadioButton.setSelected(true);
       
 
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScalling())) || (("10 mm/mV".equals(this.clstat.getVerticalScalling())) && ("5 mm/mV".equals(this.gainLabel.getText())))) {
         tenmmButtonMenuItem3ActionPerformed(evt);
@@ -2197,9 +2265,22 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+     if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+     
+     if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead aVR")); 
+          transEntry.start();
+          
+      }
+     
       break;
+        
+        
     case 5: 
       this.selectLead[1] = 5;
       this.jTabbedPane1.setSelectedIndex(1);
@@ -2207,8 +2288,11 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.avlRadioButton.setSelected(true);
       
 
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScalling())) || (("10 mm/mV".equals(this.clstat.getVerticalScalling())) && ("5 mm/mV".equals(this.gainLabel.getText())))) {
         tenmmButtonMenuItem3ActionPerformed(evt);
@@ -2219,9 +2303,20 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead aVL")); 
+          transEntry.start();
+          
+      }
       break;
+        
     case 6: 
       this.selectLead[1] = 6;
       this.jTabbedPane1.setSelectedIndex(1);
@@ -2229,8 +2324,11 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.avfRadioButton.setSelected(true);
       
 
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScalling())) || (("10 mm/mV".equals(this.clstat.getVerticalScalling())) && ("5 mm/mV".equals(this.gainLabel.getText())))) {
         tenmmButtonMenuItem3ActionPerformed(evt);
@@ -2241,8 +2339,17 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead aVF")); 
+          transEntry.start();
+          
+      }
       break;
     case 7: 
       this.selectLead[1] = 7;
@@ -2251,8 +2358,11 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.v1RadioButton.setSelected(true);
       
 
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScallingV())) || (("5 mm/mV".equals(this.clstat.getVerticalScallingV())) && ("10 mm/mV".equals(this.gainLabel.getText())))) {
         fivemmButtonMenuItemActionPerformed(evt);
@@ -2263,17 +2373,32 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead V1")); 
+          transEntry.start();
+          
+      }
       break;
+        
+        
     case 8: 
       this.selectLead[1] = 8;
       this.jTabbedPane1.setSelectedIndex(2);
       this.usb.SetFeatureReport(this.selectLead, i);
       this.v2RadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScallingV())) || (("5 mm/mV".equals(this.clstat.getVerticalScallingV())) && ("10 mm/mV".equals(this.gainLabel.getText())))) {
         fivemmButtonMenuItemActionPerformed(evt);
@@ -2284,17 +2409,30 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead V2")); 
+          transEntry.start();
+          
+      }
       break;
+        
     case 9: 
       this.selectLead[1] = 9;
       this.jTabbedPane1.setSelectedIndex(2);
       this.usb.SetFeatureReport(this.selectLead, i);
       this.v3RadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScallingV())) || (("5 mm/mV".equals(this.clstat.getVerticalScallingV())) && ("10 mm/mV".equals(this.gainLabel.getText())))) {
         fivemmButtonMenuItemActionPerformed(evt);
@@ -2305,17 +2443,32 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+     if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+     
+     if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead V3")); 
+          transEntry.start();
+          
+      }
       break;
+        
+        
     case 10: 
       this.selectLead[1] = 10;
       this.jTabbedPane1.setSelectedIndex(3);
       this.usb.SetFeatureReport(this.selectLead, i);
       this.v4RadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScallingV())) || (("5 mm/mV".equals(this.clstat.getVerticalScallingV())) && ("10 mm/mV".equals(this.gainLabel.getText())))) {
         fivemmButtonMenuItemActionPerformed(evt);
@@ -2326,17 +2479,32 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead V4")); 
+          transEntry.start();
+          
+      }
       break;
+        
+        
     case 11: 
       this.selectLead[1] = 11;
       this.jTabbedPane1.setSelectedIndex(3);
       this.usb.SetFeatureReport(this.selectLead, i);
       this.v5RadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScallingV())) || (("5 mm/mV".equals(this.clstat.getVerticalScallingV())) && ("10 mm/mV".equals(this.gainLabel.getText())))) {
         fivemmButtonMenuItemActionPerformed(evt);
@@ -2347,8 +2515,18 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead V5")); 
+          transEntry.start();
+          
+      }
       break;
     case 12: 
       this.selectLead[1] = 12;
@@ -2356,8 +2534,11 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.usb.SetFeatureReport(this.selectLead, i);
       this.v6RadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if (("".equals(this.clstat.getVerticalScallingV())) || (("5 mm/mV".equals(this.clstat.getVerticalScallingV())) && ("10 mm/mV".equals(this.gainLabel.getText())))) {
         fivemmButtonMenuItemActionPerformed(evt);
@@ -2368,17 +2549,31 @@ public class EcgDisplay extends javax.swing.JFrame {
 
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+      if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead V6")); 
+          transEntry.start();
+          
+      }
       break;
+        
+        
     case 13: 
       this.selectLead[1] = 2;
       this.jTabbedPane1.setSelectedIndex(4);
       this.usb.SetFeatureReport(this.selectLead, i);
       this.eiiRadioButton.setSelected(true);
       
-      this.read.activateStop(true);
-      this.write.activateStop(true);
+      if(startStopToggleButton.isSelected())
+      {
+          this.read.activateStop(true);
+          this.write.activateStop(true);
+      }
       this.ld5.reset();
       if ("10 mm/mV".equals(this.clstat.getVerticalScalling())) {
         tenmmButtonMenuItem3ActionPerformed(evt);
@@ -2390,8 +2585,18 @@ public class EcgDisplay extends javax.swing.JFrame {
       current = System.currentTimeMillis();
       future = current + 700L;
       while (System.currentTimeMillis() < future) {}
-      this.read.activateStop(false);
-      this.write.activateStop(false);
+      if(startStopToggleButton.isSelected())
+      {  
+         this.read.activateStop(false);
+         this.write.activateStop(false);
+      }
+       if(clstat.getSendDataFlag() == 3)
+      {
+          transEntry = new Thread(new TransmissionEntry(clstat,4,"Lead ExII")); 
+          transEntry.start();
+          
+      }
+      break;
     }
 
     }//GEN-LAST:event_leadComboBoxActionPerformed
@@ -2651,6 +2856,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         ld1=null; ld2=null; ld3=null; ld4=null;lde2=null;
         ecg=null;
         disp = null;
+        transEntry = null;
         
         
          //email = null;
@@ -3026,6 +3232,14 @@ public class EcgDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setFocusableWindowState(true);
     }//GEN-LAST:event_formMouseClicked
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+        // TODO add your handling code here:
+         if(evt.getNewState() == JFrame.MAXIMIZED_BOTH)
+        {
+             setSize((int)tk.getScreenSize().getWidth(), (int) tk.getScreenSize().getHeight()-taskBarHeight);
+        }
+    }//GEN-LAST:event_formWindowStateChanged
 /**/
     
     public void addAtachments(String[] attachments, Multipart multipart)
@@ -3081,6 +3295,7 @@ public class EcgDisplay extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup6;
     private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.ButtonGroup buttonGroup8;
+    public javax.swing.JLabel capturingLabel;
     public javax.swing.JRadioButton eiiRadioButton;
     private javax.swing.JPanel extended2Panel;
     public javax.swing.JRadioButton femaleButton;
