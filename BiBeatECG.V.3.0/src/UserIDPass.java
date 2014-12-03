@@ -19,14 +19,17 @@ import javax.swing.JOptionPane;
  *
  * @author Aumi
  */
-public class gmailIDPass extends javax.swing.JFrame {
+public class UserIDPass extends javax.swing.JFrame {
 
     /**
      * Creates new form gmailIDPass
      */
     BufferedReader InStream = null;
     FileWriter outputStream = null;
-    public gmailIDPass() throws FileNotFoundException, IOException {
+    ClientStat clstat;
+     
+    public UserIDPass() throws FileNotFoundException, IOException {
+        
         ImageIcon img = new ImageIcon("./Info/ecg-icon.png");
         this.setIconImage(img.getImage());
         this.setLocationRelativeTo(null);
@@ -38,6 +41,9 @@ public class gmailIDPass extends javax.swing.JFrame {
          
          jTextField1.setText(id);
          InStream.close();
+    }
+     void setClstat(ClientStat clstat) {
+       this.clstat = clstat;
     }
 
     /**
@@ -53,7 +59,6 @@ public class gmailIDPass extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -66,13 +71,11 @@ public class gmailIDPass extends javax.swing.JFrame {
         setAlwaysOnTop(true);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Gmail User ID and Password");
+        jLabel2.setText("User ID and Password");
 
         jLabel3.setText("User ID");
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-
-        jLabel4.setText("@gmail.com");
 
         jLabel5.setText("Password");
 
@@ -95,8 +98,8 @@ public class gmailIDPass extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -106,14 +109,11 @@ public class gmailIDPass extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
                             .addComponent(jPasswordField1)
-                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addContainerGap(43, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(39, 39, 39)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +123,7 @@ public class gmailIDPass extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -133,9 +132,9 @@ public class gmailIDPass extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -154,9 +153,11 @@ public class gmailIDPass extends javax.swing.JFrame {
                 outputStream.flush();
                 outputStream.close();
                 JOptionPane.showMessageDialog(rootPane, "User Name and Pasword Updated");
+                clstat.setUserID(jTextField1.getText());
+                clstat.setUserPass(new String(jPasswordField1.getPassword()));
                 this.dispose();
             } catch (IOException ex) {
-                Logger.getLogger(gmailIDPass.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UserIDPass.class.getName()).log(Level.SEVERE, null, ex);
             }
             
 
@@ -185,25 +186,26 @@ public class gmailIDPass extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(gmailIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(gmailIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(gmailIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(gmailIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserIDPass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new gmailIDPass().setVisible(true);
+                    new UserIDPass().setVisible(true);
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(gmailIDPass.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserIDPass.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(gmailIDPass.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UserIDPass.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -213,11 +215,12 @@ public class gmailIDPass extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+   
 }

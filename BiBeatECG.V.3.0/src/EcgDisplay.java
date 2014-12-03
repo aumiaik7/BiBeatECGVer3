@@ -324,6 +324,7 @@ public class EcgDisplay extends javax.swing.JFrame {
              loginID = InStream.readLine();
              loginPass = InStream.readLine();
              clstat.setUserID(loginID);
+             clstat.setUserPass(loginPass);
              
              InStream = new BufferedReader(new FileReader("./Info/ip.txt")) ; 
              ip = InStream.readLine();
@@ -1610,7 +1611,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setText("Edit gMail User ID and Password");
+        jMenuItem6.setText("Edit User ID and Password");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -1627,6 +1628,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         jMenu2.add(jMenuItem7);
 
         jMenuItem4.setText("Send xml file by email");
+        jMenuItem4.setEnabled(false);
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -1929,8 +1931,9 @@ public class EcgDisplay extends javax.swing.JFrame {
                                     //con.setRequestProperty("Content-Type", "text/plain");
                                     PrintStream ps = new PrintStream(con.getOutputStream());
                                     // send your parameters to your site
-                                    ps.print("username="+loginID);
-                                    ps.print("&password="+loginPass);
+                                    System.out.println(clstat.getUserID()+" "+clstat.getUserPass());
+                                    ps.print("username="+clstat.getUserID());
+                                    ps.print("&password="+clstat.getUserPass());
 
                                     // we have to get the input stream in order to actually send the request
                                     con.getInputStream();
@@ -1996,7 +1999,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             if(clstat.isLoggegIn())
             {
                 RemoteUserID email = new RemoteUserID(clstat,this);
-                email.jLabel2.setText("Enter Sender's gMailID");
+                email.jLabel2.setText("Enter Sender's ID");
 
                 jLabel2.setText("Logged in");
                 jLabel2.setForeground(Color.blue);
@@ -2094,7 +2097,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                     login.setVisible(false);
                     jLabel2.setText("Logged in");
                     jLabel2.setForeground(Color.blue);
-                    email.jLabel2.setText("Enter Recipient's gMailID");
+                    email.jLabel2.setText("Enter Recipient's ID");
                     email.setVisible(true);
                 //new RecipientEmail(clstat).setVisible(true);
                     clstat.setSendOrReceive(2);
@@ -3205,8 +3208,10 @@ public class EcgDisplay extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         try {
             // TODO add your handling code here:
-
-            new gmailIDPass().setVisible(true);
+            UserIDPass uidpass = new UserIDPass();
+            uidpass.setClstat(clstat);
+           uidpass.setVisible(true);
+           uidpass = null;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

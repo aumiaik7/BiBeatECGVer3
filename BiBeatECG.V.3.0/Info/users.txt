@@ -1,2 +1,1 @@
-ecg.user22
-admin
+user.bd
