@@ -201,7 +201,8 @@ public class EcgDisplay extends javax.swing.JFrame {
         //Thread write = new GetData(sync,ld5,clstat);
         GetData write = new GetData(sync,ld5,clstat,ecg);
         
-        String sourceFile = "";
+        String sourceFile_xml = "";
+       
 
 
 
@@ -1673,7 +1674,8 @@ public class EcgDisplay extends javax.swing.JFrame {
             Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
           }
         
-        sourceFile =clstat.getUpazila()+"_"+clstat.getPatientId()+"_"+pfNameTextField.getText()+".xml";
+        sourceFile_xml =clstat.getUpazila()+"_"+clstat.getPatientId()+"_"+pfNameTextField.getText()+".xml";
+       
         try
          {
 
@@ -1681,7 +1683,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                 //outputStream = new FileWriter("report/ECGtelemedicine.xml");
              //File file = new File("./report/"+sourceFile);
              //file = file.getAbsoluteFile();
-                outputStream = new FileWriter("./Database/"+sourceFile);
+                outputStream = new FileWriter("./Database/"+sourceFile_xml);
              //outputStream = new FileWriter(file);
                 
              //outputStream = new FileWriter("C:/"+sourceFile);
@@ -1807,7 +1809,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                 //File file2 = new File("./report/"+sourceFile);
                 //file2 = file2.getAbsoluteFile();
                 //document = JRXmlUtils.parse(JRLoader.getLocationInputStream(file2+""));
-                document = JRXmlUtils.parse(JRLoader.getLocationInputStream("./Database/"+sourceFile));
+                document = JRXmlUtils.parse(JRLoader.getLocationInputStream("./Database/"+sourceFile_xml));
                 //document = JRXmlUtils.parse(JRLoader.getLocationInputStream("C:/Program Files/Common Files/ECG_BMPT/report/"+sourceFile));
                 //document = JRXmlUtils.parse(JRLoader.getLocationInputStream("report/Ahamad Imtiaz.xml"));
             } 
@@ -1850,7 +1852,7 @@ public class EcgDisplay extends javax.swing.JFrame {
        
 		
 //            try {
-//                JasperExportManager.exportReportToPdfFile(jprint, "./report/EcgReport.pdf");
+//                JasperExportManager.exportReportToPdfFile(jprint, "./Database/pdf/"+sourceFile_pdf);
 //            } catch (JRException ex) {
 //                Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
 //            }
