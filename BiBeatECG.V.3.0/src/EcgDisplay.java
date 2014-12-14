@@ -146,7 +146,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         /*
          * LeadDisplay5 is a PApplet for realtime ECG display
          */
-        LeadDisplay5 ld5 = new LeadDisplay5(clstat,resolution,ld1,ld2,ld3,ld4,lde2);
+        LeadDisplay5 ld5 = new LeadDisplay5(clstat,resolution,ld1,ld2,ld3,ld4,lde2,this);
         
         //RecipientEmail email;// = new RecipientEmail(clstat);
         
@@ -648,6 +648,12 @@ public class EcgDisplay extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        meanLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        sdLabel = new javax.swing.JLabel();
+        maxLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
@@ -1438,15 +1444,51 @@ public class EcgDisplay extends javax.swing.JFrame {
         jPanel7.setMinimumSize(new java.awt.Dimension(1, 1));
         jPanel7.setPreferredSize(new java.awt.Dimension(1237, 25));
 
+        jLabel3.setText("Mean :");
+
+        meanLabel.setText("--");
+
+        jLabel4.setText("Sd :");
+
+        sdLabel.setText("--");
+
+        maxLabel.setText("--");
+
+        jLabel5.setText("Max");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(203, 203, 203)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(meanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(463, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 46, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(meanLabel)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(sdLabel)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(maxLabel))))
+                .addContainerGap())
         );
 
         jPanel9.setBackground(new java.awt.Color(221, 239, 221));
@@ -3318,6 +3360,9 @@ public class EcgDisplay extends javax.swing.JFrame {
     public javax.swing.JRadioButton iiiRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -3348,6 +3393,8 @@ public class EcgDisplay extends javax.swing.JFrame {
     public javax.swing.JPanel ld4Panel;
     public javax.swing.JComboBox leadComboBox;
     public javax.swing.JRadioButton maleButton;
+    public javax.swing.JLabel maxLabel;
+    public javax.swing.JLabel meanLabel;
     public javax.swing.JLabel mmPerSecLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JButton nextLeadButton;
@@ -3357,6 +3404,7 @@ public class EcgDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel realtimePanel2;
     private javax.swing.JRadioButton receiveButton;
     private javax.swing.JButton reportButton;
+    private javax.swing.JLabel sdLabel;
     private javax.swing.JRadioButton sendButton;
     private javax.swing.JLabel sexLabel;
     private javax.swing.JToggleButton startStopToggleButton;

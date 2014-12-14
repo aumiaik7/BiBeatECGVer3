@@ -1,3 +1,6 @@
+
+import org.mozilla.javascript.edu.emory.mathcs.backport.java.util.Arrays;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -53,8 +56,10 @@ public class GetData extends Thread{
     private int plotVal2;
     
     private static int position = 0;
-    private int[] storedDataFor15 = new int[13]; 
+    private int[] storedDataFor15 = new int[13];
+    private int[] storedDataFor15NF = new int[13];
     private int[] storedDataFor20 = new int[10]; 
+    private int[] storedDataFor20NF = new int[10]; 
 
     /*
      * Constructor
@@ -78,30 +83,32 @@ public class GetData extends Thread{
         killThread = true;
     }
 
-     public void setDatafor15(int data)
+     public void setDatafor15(int data , int nfData)
      {
          if(position == 13)
          {
              position = 0;
              int avgData = (storedDataFor15[0]+storedDataFor15[1]+storedDataFor15[2]+storedDataFor15[3]+storedDataFor15[4]+storedDataFor15[5]+
                      storedDataFor15[6]+storedDataFor15[7]+storedDataFor15[8]+storedDataFor15[9]+storedDataFor15[10]+storedDataFor15[11]+storedDataFor15[12])/13;
-             ld5.setValue((int)(avgData*clstat.getGain()));
+             ld5.setValue((int)(avgData*clstat.getGain()),storedDataFor15NF);
                      
          }
          storedDataFor15[position] = data;
+         storedDataFor15NF[position] = data;
          position++;
      }
-      public void setDatafor20(int data)
+      public void setDatafor20(int data , int nfData)
      {
          if(position == 10)
          {
              position = 0;
-             int avgData = (storedDataFor15[0]+storedDataFor15[1]+storedDataFor15[2]+storedDataFor15[3]+storedDataFor15[4]+storedDataFor15[5]+
-                     storedDataFor15[6]+storedDataFor15[7]+storedDataFor15[8]+storedDataFor15[9])/10;
-             ld5.setValue((int)(avgData*clstat.getGain()));
+             int avgData = (storedDataFor20[0]+storedDataFor20[1]+storedDataFor20[2]+storedDataFor20[3]+storedDataFor20[4]+storedDataFor20[5]+
+                     storedDataFor20[6]+storedDataFor20[7]+storedDataFor20[8]+storedDataFor20[9])/10;
+             ld5.setValue((int)(avgData*clstat.getGain()),storedDataFor20NF);
                      
          }
-         storedDataFor15[position] = data;
+         storedDataFor20[position] = data;
+         storedDataFor20NF[position] = data;
          position++;
      }
     public void run()
@@ -184,7 +191,7 @@ public class GetData extends Thread{
                             //plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
                             for(int i = 0 ; i < 8; i++ )
                             {
-                                setDatafor15(ReportBufferHP[i]);
+                                setDatafor15(ReportBufferHP[i],ReportBufferNF[i]);
                             }
                         } 
                         else if(!clstat.getFilterFlag() && clstat.gethorScalling()==2)
@@ -192,21 +199,23 @@ public class GetData extends Thread{
                             //plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
                             for(int i = 0 ; i < 8; i++ )
                             {
-                                setDatafor20(ReportBufferHP[i]);
+                                setDatafor20(ReportBufferHP[i],ReportBufferNF[i]);
                             }
                         }
                         else if(!clstat.getFilterFlag() && clstat.gethorScalling()==3)
                         {    
                             plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
-                             ld5.setValue((int)(plotVal*clstat.getGain()));
+                             ld5.setValue((int)(plotVal*clstat.getGain()),ReportBufferNF);
                         }
                         else if(!clstat.getFilterFlag() && clstat.gethorScalling()==4)
                         {    
                             //plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
                             plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3])  / 4;
                             plotVal2 = (int)(ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 4;
-                            ld5.setValue((int)(plotVal*clstat.getGain()));
-                            ld5.setValue((int)(plotVal2*clstat.getGain()));
+                            int[] array1 = Arrays.copyOfRange(ReportBufferNF, 0, 4);
+                            int[] array2 = Arrays.copyOfRange(ReportBufferNF, 4, 8);
+                            ld5.setValue((int)(plotVal*clstat.getGain()),array1);
+                            ld5.setValue((int)(plotVal2*clstat.getGain()),array2);
                         }
 
 
@@ -216,7 +225,7 @@ public class GetData extends Thread{
                             //plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
                             for(int i = 0 ; i < 8; i++ )
                             {
-                                setDatafor15(ReportBufferF[i]);
+                                setDatafor15(ReportBufferF[i],ReportBufferNF[i]);
                             }
                         } 
                         else if(clstat.getFilterFlag() && clstat.gethorScalling()==2)
@@ -224,13 +233,13 @@ public class GetData extends Thread{
                             //plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
                             for(int i = 0 ; i < 8; i++ )
                             {
-                                setDatafor20(ReportBufferF[i]);
+                                setDatafor20(ReportBufferF[i],ReportBufferNF[i]);
                             }
                         }       
                         else if(clstat.getFilterFlag() && clstat.gethorScalling()==3)
                         {
                             plotVal = (int)(ReportBufferF[0] + ReportBufferF[1] + ReportBufferF[2] + ReportBufferF[3] + ReportBufferF[4] + ReportBufferF[5] + ReportBufferF[6] + ReportBufferF[7]) / 8;
-                             ld5.setValue((int)(plotVal*clstat.getGain()));
+                             ld5.setValue((int)(plotVal*clstat.getGain()),ReportBufferNF);
 
                         }
                         else if(clstat.getFilterFlag() && clstat.gethorScalling()==4)
@@ -238,8 +247,10 @@ public class GetData extends Thread{
                             //plotVal = (int)(ReportBufferHP[0] + ReportBufferHP[1] + ReportBufferHP[2] + ReportBufferHP[3] + ReportBufferHP[4] + ReportBufferHP[5] + ReportBufferHP[6] + ReportBufferHP[7]) / 8;
                             plotVal = (int)(ReportBufferF[0] + ReportBufferF[1] + ReportBufferF[2] + ReportBufferF[3])  / 4;
                             plotVal2 = (int)(ReportBufferF[4] + ReportBufferF[5] + ReportBufferF[6] + ReportBufferF[7]) / 4;
-                            ld5.setValue((int)(plotVal*clstat.getGain()));
-                            ld5.setValue((int)(plotVal2*clstat.getGain()));
+                             int[] array1 = Arrays.copyOfRange(ReportBufferNF, 0, 4);
+                            int[] array2 = Arrays.copyOfRange(ReportBufferNF, 4, 8);
+                            ld5.setValue((int)(plotVal*clstat.getGain()),array1);
+                            ld5.setValue((int)(plotVal2*clstat.getGain()),array2);
                         }
 
                         //System.out.println("Avggggggggggggggggggggggggggggggggggggggggggggggggggggggg = " + plotVal);

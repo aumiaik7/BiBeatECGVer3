@@ -45,16 +45,19 @@ public class LeadDisplay5 extends PApplet{
       ClientStat clstat;
       long start1 ;
       static int[] storedData = new int[512]; 
+      static int[] storedRawData;// = new int[];
+      int rawDataPosition = 0;
       LeadDisplay1 ld1;
       LeadDisplay2 ld2;
       LeadDisplay3 ld3;
       LeadDisplay4 ld4;
       LeadDisplayExtended2 lde2;
+      EcgDisplay ecgD;
       
 
       //GetSet getset;
 
-    public LeadDisplay5(ClientStat cs, int r, LeadDisplay1 l1, LeadDisplay2 l2, LeadDisplay3 l3, LeadDisplay4 l4,LeadDisplayExtended2 le2) {
+    public LeadDisplay5(ClientStat cs, int r, LeadDisplay1 l1, LeadDisplay2 l2, LeadDisplay3 l3, LeadDisplay4 l4,LeadDisplayExtended2 le2, EcgDisplay ecgD) {
         clstat = cs;
         resolution = r;
         ld1 = l1;
@@ -62,6 +65,7 @@ public class LeadDisplay5 extends PApplet{
         ld3 = l3;
         ld4 = l4;
         lde2 = le2;
+        this.ecgD = ecgD;
     }
 
 
@@ -75,8 +79,48 @@ public class LeadDisplay5 extends PApplet{
         xprev = 0;
         background(255,255,240);
     }
+    
+    private int mean(int[] num) {
+        int sum = 0;  // sum of all the elements
+        for (int i=0; i<num.length; i++) {
+            sum += num[i];
+        }
+        return sum / num.length;
+    }
+    
+    private int standardDeviation(int[] num,int average) {
+        int sd = 0;    
+        for (int i=0; i<num.length;i++)
+            {
+                sd = (int) (sd + Math.pow(num[i] - average, 2));
+            
+            }
+        return sd;
+    }
+    
+    private int maximum(int[] num) {
+        int max = 0;
+        for (int i=0; i<num.length;i++)
+        {
+            if(num[i]>max)
+                max = num[i];
 
-    public void setValue(int val)
+        }
+        return max;
+    }
+    
+    private int minimum(int[] num) {
+        int min = 0;
+        for (int i=0; i<num.length;i++)
+        {
+            if(num[i]<min)
+                min = num[i];
+
+        }
+        return min;
+    }
+
+    public void setValue(int val,int[] rawData)
     {
         
         if(iPos == 0)
@@ -87,13 +131,29 @@ public class LeadDisplay5 extends PApplet{
         
         storedData[iPos] = val;
         
+        for(int i = 0; i < rawData.length; i++)
+        {
+            storedRawData[rawDataPosition] = rawData[i] - 127;
+            rawDataPosition++;
+        }
+        
                  
        
        if(iPos>= width)
        {
            //JOptionPane.showMessageDialog(null,"Hello" + (int)(System.currentTimeMillis() - start1));
            iPos = 0;
+           rawDataPosition = 0;
            xprev = 0;
+           int avg = mean(storedRawData);
+           int sd  = standardDeviation(storedRawData, avg);
+           int max = maximum(storedRawData);
+           int min = minimum(storedRawData);
+           int Max = Math.max(max, Math.abs(min));
+           ecgD.meanLabel.setText(avg+"");
+           ecgD.sdLabel.setText(sd+"");
+           ecgD.maxLabel.setText(Max+"");
+           
            background(255,255,240);
            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+ (System.currentTimeMillis()- start1));
             if(clstat.getLeadNo().equals("1") || clstat.getLeadNo().equals("2") || clstat.getLeadNo().equals("3"))
@@ -262,4 +322,6 @@ public void draw () {
 
 
   }
+
+    
 }
