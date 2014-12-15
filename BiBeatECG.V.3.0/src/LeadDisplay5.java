@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jivesoftware.smack.XMPPException;
+import org.mozilla.javascript.edu.emory.mathcs.backport.java.util.Arrays;
 /**
  *
  * @author Aumi
@@ -45,7 +46,7 @@ public class LeadDisplay5 extends PApplet{
       ClientStat clstat;
       long start1 ;
       static int[] storedData = new int[512]; 
-      static int[] storedRawData;// = new int[];
+      static int[] storedRawData = new int[10000];
       int rawDataPosition = 0;
       LeadDisplay1 ld1;
       LeadDisplay2 ld2;
@@ -82,25 +83,25 @@ public class LeadDisplay5 extends PApplet{
     
     private int mean(int[] num) {
         int sum = 0;  // sum of all the elements
-        for (int i=0; i<num.length; i++) {
+        for (int i=0; i<(rawDataPosition/2); i++) {
             sum += num[i];
         }
-        return sum / num.length;
+        return sum / (rawDataPosition/2);
     }
     
     private int standardDeviation(int[] num,int average) {
         int sd = 0;    
-        for (int i=0; i<num.length;i++)
+        for (int i=0; i<(rawDataPosition/2);i++)
             {
-                sd = (int) (sd + Math.pow(num[i] - average, 2));
+                sd = (int) (sd + Math.abs(num[i] - average));
             
             }
-        return sd;
+        return sd / (rawDataPosition/2);
     }
     
     private int maximum(int[] num) {
         int max = 0;
-        for (int i=0; i<num.length;i++)
+        for (int i=0; i<rawDataPosition;i++)
         {
             if(num[i]>max)
                 max = num[i];
@@ -111,7 +112,7 @@ public class LeadDisplay5 extends PApplet{
     
     private int minimum(int[] num) {
         int min = 0;
-        for (int i=0; i<num.length;i++)
+        for (int i=0; i<rawDataPosition;i++)
         {
             if(num[i]<min)
                 min = num[i];
@@ -143,15 +144,23 @@ public class LeadDisplay5 extends PApplet{
        {
            //JOptionPane.showMessageDialog(null,"Hello" + (int)(System.currentTimeMillis() - start1));
            iPos = 0;
-           rawDataPosition = 0;
+          
            xprev = 0;
-           int avg = mean(storedRawData);
-           int sd  = standardDeviation(storedRawData, avg);
+           int halfRawDataSize = rawDataPosition /2;
+           int[] array1 = Arrays.copyOfRange(storedRawData, 0, halfRawDataSize);
+           int[] array2 = Arrays.copyOfRange(storedRawData,  halfRawDataSize, rawDataPosition);
+           int avg1 = mean(array1);
+           int avg2 = mean(array2);
+           int sd1  = standardDeviation(storedRawData, avg1);
+           int sd2  = standardDeviation(storedRawData, avg2);
            int max = maximum(storedRawData);
            int min = minimum(storedRawData);
            int Max = Math.max(max, Math.abs(min));
-           ecgD.meanLabel.setText(avg+"");
-           ecgD.sdLabel.setText(sd+"");
+           
+          
+           rawDataPosition = 0;
+           ecgD.meanLabel.setText(avg1+" "+avg2);
+           ecgD.sdLabel.setText(sd1+" "+sd2);
            ecgD.maxLabel.setText(Max+"");
            
            background(255,255,240);
@@ -195,6 +204,25 @@ public class LeadDisplay5 extends PApplet{
 
             //recordBuffer = null;
             }
+             if((avg1>=10 && avg1 <=20 ) && (sd1 <=15 && sd1>=4) &&  (Max <80 &&  Max >0) && (avg2>=10 && avg2 <=20 ) && (sd2 <=15 && sd2>=4))
+           {
+                int j = ecgD.leadComboBox.getSelectedIndex();
+                if(j == 13)
+                {  
+                    j = 1;
+                    ecgD.leadComboBox.setSelectedIndex(j);
+                   // leadComboBoxActionPerformed(evt);
+
+
+                }
+                else
+                {
+                    j += 1;
+                    ecgD.leadComboBox.setSelectedIndex(j);
+                   // leadComboBoxActionPerformed(evt);
+
+                }
+           }
            start1 = System.currentTimeMillis();
            
        }

@@ -1468,26 +1468,27 @@ public class EcgDisplay extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(sdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(maxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(463, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(meanLabel)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(sdLabel)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(maxLabel))))
+                            .addComponent(maxLabel)))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(meanLabel)))
                 .addContainerGap())
         );
 
@@ -3265,7 +3266,7 @@ public class EcgDisplay extends javax.swing.JFrame {
 
     private void eiiRadioButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eiiRadioButtonMouseClicked
         // TODO add your handling code here:
-        leadComboBox.setSelectedIndex(12);
+        leadComboBox.setSelectedIndex(13);
     }//GEN-LAST:event_eiiRadioButtonMouseClicked
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -3404,7 +3405,7 @@ public class EcgDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel realtimePanel2;
     private javax.swing.JRadioButton receiveButton;
     private javax.swing.JButton reportButton;
-    private javax.swing.JLabel sdLabel;
+    public javax.swing.JLabel sdLabel;
     private javax.swing.JRadioButton sendButton;
     private javax.swing.JLabel sexLabel;
     private javax.swing.JToggleButton startStopToggleButton;
