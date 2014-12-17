@@ -1481,11 +1481,11 @@ public class EcgDisplay extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(maxLabel))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(sdLabel)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(maxLabel)))
+                        .addComponent(sdLabel))
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(meanLabel)))
@@ -2221,7 +2221,7 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.selectLead[1] = 2;
       this.jTabbedPane1.setSelectedIndex(0);
       this.usb.SetFeatureReport(this.selectLead, i);
-      this.eiiRadioButton.setSelected(true);
+      this.iiRadioButton.setSelected(true);
       
       if(startStopToggleButton.isSelected())
       {

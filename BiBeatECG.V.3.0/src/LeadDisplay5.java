@@ -78,6 +78,7 @@ public class LeadDisplay5 extends PApplet{
     {
         iPos = 0;
         xprev = 0;
+        rawDataPosition = 0;
         background(255,255,240);
     }
     
@@ -204,7 +205,7 @@ public class LeadDisplay5 extends PApplet{
 
             //recordBuffer = null;
             }
-             if((avg1>=10 && avg1 <=20 ) && (sd1 <=15 && sd1>=4) &&  (Max <80 &&  Max >0) && (avg2>=10 && avg2 <=20 ) && (sd2 <=15 && sd2>=4))
+             if((avg1>=7 && avg1 <=20 ) && (sd1 <=15 && sd1>=4) &&  (Max <100 &&  Max >0) && (avg2>=7 && avg2 <=20 ) && (sd2 <=15 && sd2>=4))
            {
                 int j = ecgD.leadComboBox.getSelectedIndex();
                 if(j == 13)
@@ -223,6 +224,11 @@ public class LeadDisplay5 extends PApplet{
 
                 }
            }
+//             else
+//             {
+//                 int j = ecgD.leadComboBox.getSelectedIndex();
+//                  ecgD.leadComboBox.setSelectedIndex(j);
+//             }
            start1 = System.currentTimeMillis();
            
        }
