@@ -1543,7 +1543,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         jMenuBar1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jMenuBar1.setDoubleBuffered(true);
 
-        FileMenu.setText("File");
+        FileMenu.setText("Settings");
         FileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         FileMenu.setDoubleBuffered(true);
 
@@ -2886,6 +2886,8 @@ public class EcgDisplay extends javax.swing.JFrame {
         //new OpenDisplay().setVisible(true);
         idoutputStream = null;
         InStream = null;
+        read.activateStop(false);
+        write.activateStop(false);
         read.killThread();
         write.killThread();
         //this = null;

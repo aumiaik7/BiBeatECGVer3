@@ -103,11 +103,35 @@ public class LeadDisplay1 extends PApplet{
         //utp = ut;
     }
 
+    private int mean(int[] data) {
+        int sum = 0;  // sum of all the elements
+        for (int i=1; i<= 500; i++) {
+            sum += data[i];
+        }
+        return sum / 500;
+    }
 
 
 
-
-
+    private void beatCalculation(int[] data) {
+        int avg = mean(data);
+        for (int i=0; i<500;i++)
+        {
+            data[i] = data[i+1] - data[i];//(int) ( Math.abs(data[i] - avg));
+            
+            rect(i, data[i], 5, 5);
+        }
+        int count = 0;
+        for (int i=25; i<500;i++)
+        {
+            if(Math.abs(data[i+1] - data[i]) >= 20 )
+            {
+                count++;
+                i+=20;
+            }
+        }
+        JOptionPane.showMessageDialog(null,count+"");
+    }
 
 
     public void setValue(int[] val) throws XMPPException
@@ -236,7 +260,7 @@ public class LeadDisplay1 extends PApplet{
          else if(clstat.getLeadNo().equals("2"))
          {
             
-            
+                beatCalculation(del3Y);
                 flag1 = false;
                 flag3 = false;
                 flag2 = true;
@@ -514,4 +538,6 @@ public void draw () {
 
 
   }
+
+    
 }
