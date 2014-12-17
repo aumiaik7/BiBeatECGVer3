@@ -1500,7 +1500,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         jMenuBar1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jMenuBar1.setDoubleBuffered(true);
 
-        FileMenu.setText("File");
+        FileMenu.setText("Settings");
         FileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         FileMenu.setDoubleBuffered(true);
 
@@ -2178,7 +2178,7 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.selectLead[1] = 2;
       this.jTabbedPane1.setSelectedIndex(0);
       this.usb.SetFeatureReport(this.selectLead, i);
-      this.eiiRadioButton.setSelected(true);
+      this.iiRadioButton.setSelected(true);
       
       if(startStopToggleButton.isSelected())
       {
@@ -2843,6 +2843,8 @@ public class EcgDisplay extends javax.swing.JFrame {
         //new OpenDisplay().setVisible(true);
         idoutputStream = null;
         InStream = null;
+        read.activateStop(false);
+        write.activateStop(false);
         read.killThread();
         write.killThread();
         //this = null;
@@ -2870,6 +2872,7 @@ public class EcgDisplay extends javax.swing.JFrame {
          login = null;
          remote.activateStop(true);
          remote = null;
+         
         try {
             new EcgDisplay().setVisible(true);
         } catch (UnknownHostException ex) {
@@ -3109,6 +3112,7 @@ public class EcgDisplay extends javax.swing.JFrame {
 
     private void startStopToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopToggleButtonActionPerformed
         // TODO add your handling code here:
+        
         if(clstat.getSendDataFlag() == 1 || clstat.getSendDataFlag() == 3)
         {
             if(startStopToggleButton.isSelected())
