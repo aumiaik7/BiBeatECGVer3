@@ -34,6 +34,7 @@ public class ClientStat
   private String scalingV = "";
   private String remoteUserID = "";
   private String userID = "";
+  private String userPass = "";
   private int sendorReceive = 0;
   private int horizontalScalingFlag = 3;
   private boolean dataFlag = true;
@@ -50,6 +51,13 @@ public class ClientStat
   
   private boolean loginstatus = false;
   
+  
+   public void setUserPass(String loginPass) {
+       this.userPass = loginPass;
+    }
+   public String getUserPass() {
+       return this.userPass;
+    }
   public void setTransmissionID(String tid)
   {
       this.transmissionID = tid;
@@ -468,4 +476,6 @@ public class ClientStat
   {
     return this.filterFlag;
   }
+
+   
 }

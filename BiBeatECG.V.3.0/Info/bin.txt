@@ -1,2 +1,2 @@
-public
-password123
+user.pk
+bmptw012010

@@ -201,7 +201,8 @@ public class EcgDisplay extends javax.swing.JFrame {
         //Thread write = new GetData(sync,ld5,clstat);
         GetData write = new GetData(sync,ld5,clstat,ecg);
         
-        String sourceFile = "";
+        String sourceFile_xml = "";
+       
 
 
 
@@ -324,6 +325,7 @@ public class EcgDisplay extends javax.swing.JFrame {
              loginID = InStream.readLine();
              loginPass = InStream.readLine();
              clstat.setUserID(loginID);
+             clstat.setUserPass(loginPass);
              
              InStream = new BufferedReader(new FileReader("./Info/ip.txt")) ; 
              ip = InStream.readLine();
@@ -1498,7 +1500,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         jMenuBar1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jMenuBar1.setDoubleBuffered(true);
 
-        FileMenu.setText("File");
+        FileMenu.setText("Settings");
         FileMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         FileMenu.setDoubleBuffered(true);
 
@@ -1610,7 +1612,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem5);
 
-        jMenuItem6.setText("Edit gMail User ID and Password");
+        jMenuItem6.setText("Edit User ID and Password");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -1627,6 +1629,7 @@ public class EcgDisplay extends javax.swing.JFrame {
         jMenu2.add(jMenuItem7);
 
         jMenuItem4.setText("Send xml file by email");
+        jMenuItem4.setEnabled(false);
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -1671,7 +1674,8 @@ public class EcgDisplay extends javax.swing.JFrame {
             Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
           }
         
-        sourceFile =clstat.getUpazila()+"_"+clstat.getPatientId()+"_"+pfNameTextField.getText()+".xml";
+        sourceFile_xml =clstat.getUpazila()+"_"+clstat.getPatientId()+"_"+pfNameTextField.getText()+".xml";
+       
         try
          {
 
@@ -1679,7 +1683,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                 //outputStream = new FileWriter("report/ECGtelemedicine.xml");
              //File file = new File("./report/"+sourceFile);
              //file = file.getAbsoluteFile();
-                outputStream = new FileWriter("./Database/"+sourceFile);
+                outputStream = new FileWriter("./Database/"+sourceFile_xml);
              //outputStream = new FileWriter(file);
                 
              //outputStream = new FileWriter("C:/"+sourceFile);
@@ -1805,7 +1809,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                 //File file2 = new File("./report/"+sourceFile);
                 //file2 = file2.getAbsoluteFile();
                 //document = JRXmlUtils.parse(JRLoader.getLocationInputStream(file2+""));
-                document = JRXmlUtils.parse(JRLoader.getLocationInputStream("./Database/"+sourceFile));
+                document = JRXmlUtils.parse(JRLoader.getLocationInputStream("./Database/"+sourceFile_xml));
                 //document = JRXmlUtils.parse(JRLoader.getLocationInputStream("C:/Program Files/Common Files/ECG_BMPT/report/"+sourceFile));
                 //document = JRXmlUtils.parse(JRLoader.getLocationInputStream("report/Ahamad Imtiaz.xml"));
             } 
@@ -1848,7 +1852,7 @@ public class EcgDisplay extends javax.swing.JFrame {
        
 		
 //            try {
-//                JasperExportManager.exportReportToPdfFile(jprint, "./report/EcgReport.pdf");
+//                JasperExportManager.exportReportToPdfFile(jprint, "./Database/pdf/"+sourceFile_pdf);
 //            } catch (JRException ex) {
 //                Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
 //            }
@@ -1929,8 +1933,9 @@ public class EcgDisplay extends javax.swing.JFrame {
                                     //con.setRequestProperty("Content-Type", "text/plain");
                                     PrintStream ps = new PrintStream(con.getOutputStream());
                                     // send your parameters to your site
-                                    ps.print("username="+loginID);
-                                    ps.print("&password="+loginPass);
+                                    System.out.println(clstat.getUserID()+" "+clstat.getUserPass());
+                                    ps.print("username="+clstat.getUserID());
+                                    ps.print("&password="+clstat.getUserPass());
 
                                     // we have to get the input stream in order to actually send the request
                                     con.getInputStream();
@@ -1996,7 +2001,7 @@ public class EcgDisplay extends javax.swing.JFrame {
             if(clstat.isLoggegIn())
             {
                 RemoteUserID email = new RemoteUserID(clstat,this);
-                email.jLabel2.setText("Enter Sender's gMailID");
+                email.jLabel2.setText("Enter Sender's ID");
 
                 jLabel2.setText("Logged in");
                 jLabel2.setForeground(Color.blue);
@@ -2094,7 +2099,7 @@ public class EcgDisplay extends javax.swing.JFrame {
                     login.setVisible(false);
                     jLabel2.setText("Logged in");
                     jLabel2.setForeground(Color.blue);
-                    email.jLabel2.setText("Enter Recipient's gMailID");
+                    email.jLabel2.setText("Enter Recipient's ID");
                     email.setVisible(true);
                 //new RecipientEmail(clstat).setVisible(true);
                     clstat.setSendOrReceive(2);
@@ -2173,7 +2178,7 @@ public class EcgDisplay extends javax.swing.JFrame {
       this.selectLead[1] = 2;
       this.jTabbedPane1.setSelectedIndex(0);
       this.usb.SetFeatureReport(this.selectLead, i);
-      this.eiiRadioButton.setSelected(true);
+      this.iiRadioButton.setSelected(true);
       
       if(startStopToggleButton.isSelected())
       {
@@ -2838,6 +2843,8 @@ public class EcgDisplay extends javax.swing.JFrame {
         //new OpenDisplay().setVisible(true);
         idoutputStream = null;
         InStream = null;
+        read.activateStop(false);
+        write.activateStop(false);
         read.killThread();
         write.killThread();
         //this = null;
@@ -2865,6 +2872,7 @@ public class EcgDisplay extends javax.swing.JFrame {
          login = null;
          remote.activateStop(true);
          remote = null;
+         
         try {
             new EcgDisplay().setVisible(true);
         } catch (UnknownHostException ex) {
@@ -3104,6 +3112,7 @@ public class EcgDisplay extends javax.swing.JFrame {
 
     private void startStopToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startStopToggleButtonActionPerformed
         // TODO add your handling code here:
+        
         if(clstat.getSendDataFlag() == 1 || clstat.getSendDataFlag() == 3)
         {
             if(startStopToggleButton.isSelected())
@@ -3205,8 +3214,10 @@ public class EcgDisplay extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         try {
             // TODO add your handling code here:
-
-            new gmailIDPass().setVisible(true);
+            UserIDPass uidpass = new UserIDPass();
+            uidpass.setClstat(clstat);
+           uidpass.setVisible(true);
+           uidpass = null;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

@@ -96,12 +96,12 @@ public class GetData extends Thread{
          if(position == 10)
          {
              position = 0;
-             int avgData = (storedDataFor15[0]+storedDataFor15[1]+storedDataFor15[2]+storedDataFor15[3]+storedDataFor15[4]+storedDataFor15[5]+
-                     storedDataFor15[6]+storedDataFor15[7]+storedDataFor15[8]+storedDataFor15[9])/10;
+             int avgData = (storedDataFor20[0]+storedDataFor20[1]+storedDataFor20[2]+storedDataFor20[3]+storedDataFor20[4]+storedDataFor20[5]+
+                     storedDataFor20[6]+storedDataFor20[7]+storedDataFor20[8]+storedDataFor20[9])/10;
              ld5.setValue((int)(avgData*clstat.getGain()));
                      
          }
-         storedDataFor15[position] = data;
+         storedDataFor20[position] = data;
          position++;
      }
     public void run()

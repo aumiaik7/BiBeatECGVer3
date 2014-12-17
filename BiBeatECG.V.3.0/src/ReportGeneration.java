@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRParameter;
@@ -63,7 +64,7 @@ public class ReportGeneration extends javax.swing.JFrame {
         this.setIconImage(img.getImage());
         this.setLocationRelativeTo(null);
         initComponents();
-        jFileChooser2.setCurrentDirectory(new File("./Database"));
+        jFileChooser2.setCurrentDirectory(new File("./Database/"));
          
        JRProperties.setProperty("net.sf.jasperreports.xpath.executer.factory","net.sf.jasperreports.engine.util.xml.JaxenXPathExecuterFactory");
         //setLocation(100, 100);
@@ -153,6 +154,7 @@ public class ReportGeneration extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
  
+        
         JasperReport jasperReport = null;
         JasperViewer jv = null;
         JasperPrint jprint = null;
@@ -196,9 +198,11 @@ public class ReportGeneration extends javax.swing.JFrame {
             catch (JRException ex) {
                 Logger.getLogger(EcgDisplay.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
                 jv = new JasperViewer(jprint, false);
                 jv.setTitle("ECG Report");
-                jv.setAlwaysOnTop(true);
+                jv.setExtendedState( JFrame.MAXIMIZED_BOTH);
                 jv.setVisible(true);
                 //jv.viewReport(jprint,false);
 		System.err.println("Filling time : " + (System.currentTimeMillis() - start));
