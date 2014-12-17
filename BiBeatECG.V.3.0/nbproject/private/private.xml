@@ -4,10 +4,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/RemoteUserID.java</file>
             <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/RemoteData.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/LoginWait.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/Main_1.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/LeadDisplayExtended2.java</file>
             <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/EcgDisplay.java</file>
             <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/LeadDisplay1.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/GetData.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/LeadDisplay5.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/InReportRead.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/ReceiveRemoteData.java</file>
             <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/TransmissionEntry.java</file>
+            <file>file:/C:/Users/Imtiaz/Github/BibeatECGVer3/BiBeatECG.V.3.0/src/MyHID.java</file>
         </group>
     </open-files>
 </project-private>
